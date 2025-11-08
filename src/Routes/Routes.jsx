@@ -1,23 +1,64 @@
 import { createBrowserRouter } from "react-router";
 import ErrorPage from "../Pages/ErrorPage";
-import RootLayout from "../Layouts/RootLayout";
 import Home from "../Pages/Home";
-
-
-
+import PrivetRoutes from "./PrivetRoutes";
+import AddCar from "../Pages/AddCar";
+import MainLayout from "../Layouts/MainLayout";
+import Login from "../Pages/auth/Login";
+import Registretion from "../Pages/auth/Registretion";
+import MyListing from "../Pages/MyListing";
+import MyBookings from "../Pages/MyBookings";
+import BrowseCars from "../Pages/BrowseCars";
 const router = createBrowserRouter([
-    {
-        path :'/',
-        Component: RootLayout,
-        errorElement:<ErrorPage/>,
-        children : [
-            {
-                index: true,
-                Component: Home
-            },
-
-        ]
-    }
-])
+  {
+    path: "/",
+    Component: MainLayout,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        path: "/",
+        Component: Home,
+      },
+      {
+        path: "/add-car",
+        element: (
+          <PrivetRoutes>
+            <AddCar />
+          </PrivetRoutes>
+        ),
+      },
+      {
+        path: "/my-listings",
+        element: (
+          <PrivetRoutes>
+            <MyListing/>
+          </PrivetRoutes>
+        ),
+      },
+      {
+        path: "/my-bookings",
+        element: (
+          <PrivetRoutes>
+            <MyBookings/>
+          </PrivetRoutes>
+        ),
+      },
+      {
+        path:'/browse-cars',
+        Component: BrowseCars
+      },
+     
+      {
+        path: "/auth/login",
+        Component: Login,
+      },
+      {
+        path:'./auth/register',
+        Component: Registretion
+      },
+    ],
+  },
+]);
 
 export default router;
