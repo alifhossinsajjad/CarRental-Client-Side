@@ -34,27 +34,21 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <NavLink to={'/'}>Home</NavLink>
+                  <NavLink to={"/"}>Home</NavLink>
                 </li>
                 <li>
-                  <NavLink to={'/add-car'}>Add Car</NavLink>
+                  <NavLink to={"/add-car"}>Add Car</NavLink>
                 </li>
                 <li>
-                  <NavLink to={'/my-listings'}>My Listings</NavLink>
+                  <NavLink to={"/my-listings"}>My Listings</NavLink>
                 </li>
                 <li>
-                  <NavLink to={'/my-bookings'}>My Bookings</NavLink>
+                  <NavLink to={"/my-bookings"}>My Bookings</NavLink>
                 </li>
                 <li>
-                  <NavLink to={'/browse-cars'}>Browse Cars</NavLink>
+                  <NavLink to={"/browse-cars"}>Browse Cars</NavLink>
                 </li>
-                <li>
-                  <NavLink to={'/auth/login'}>Login</NavLink>
-                </li>
-                <li>
-                  <NavLink to={'/auth/register'}>Signup</NavLink>
-                </li>
-                
+               
               </ul>
             </div>
             <a className="btn btn-ghost text-xl">daisyUI</a>
@@ -62,28 +56,29 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
               <li>
-                <a>Item 1</a>
+                <NavLink to={"/"}>Home</NavLink>
               </li>
               <li>
-                <details>
-                  <summary>Parent</summary>
-                  <ul className="p-2">
-                    <li>
-                      <a>Submenu 1</a>
-                    </li>
-                    <li>
-                      <a>Submenu 2</a>
-                    </li>
-                  </ul>
-                </details>
+                <NavLink to={"/add-car"}>Add Car</NavLink>
               </li>
               <li>
-                <a>Item 3</a>
+                <NavLink to={"/my-listings"}>My Listings</NavLink>
               </li>
+              <li>
+                <NavLink to={"/my-bookings"}>My Bookings</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/browse-cars"}>Browse Cars</NavLink>
+              </li>
+            
             </ul>
           </div>
           <div className="navbar-end">
-            <a className="btn">Button</a>
+            <button
+
+             className="btn">
+              login
+            </button>
           </div>
         </div>
       </div>
