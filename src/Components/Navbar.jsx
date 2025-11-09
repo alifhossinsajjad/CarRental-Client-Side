@@ -168,7 +168,7 @@ const Navbar = () => {
                   to="/auth/register"
                   className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-blue-500/20"
                 >
-                  Join Now
+                  Sign up
                 </Link>
               </div>
             )}
@@ -286,7 +286,7 @@ const Navbar = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block w-full px-4 py-4 text-center bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-500/20"
                 >
-                  Join Now
+                  Sign up
                 </Link>
               </div>
             )}

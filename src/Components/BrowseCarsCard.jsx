@@ -59,39 +59,39 @@ const BrowseCarsCard = ({ car }) => {
       return;
     }
 
-    const bookingPayload = {
-      carId: _id,
-      userId: user.uid,
-      userEmail: user.email,
-      userName: user.displayName || 'User',
-      startDate: bookingData.startDate,
-      endDate: bookingData.endDate,
-      totalPrice: bookingData.totalPrice
-    };
+    // const bookingPayload = {
+    //   carId: _id,
+    //   userId: user.uid,
+    //   userEmail: user.email,
+    //   userName: user.displayName || 'User',
+    //   startDate: bookingData.startDate,
+    //   endDate: bookingData.endDate,
+    //   totalPrice: bookingData.totalPrice
+    // };
 
-    try {
-      const response = await fetch('http://localhost:3000/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(bookingPayload),
-      });
+    // try {
+    //   const response = await fetch('http://localhost:3000/bookings', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(bookingPayload),
+    //   });
 
-      const result = await response.json();
+    //   const result = await response.json();
 
-      if (result.success) {
-        alert('Car booked successfully!');
-        setShowBookingModal(false);
+    //   if (result.success) {
+    //     alert('Car booked successfully!');
+    //     setShowBookingModal(false);
      
-        window.location.reload();
-      } else {
-        alert(result.message || 'Booking failed');
-      }
-    } catch (error) {
-      console.error('Booking error:', error);
-      alert('Booking failed. Please try again.');
-    }
+    //     window.location.reload();
+    //   } else {
+    //     alert(result.message || 'Booking failed');
+    //   }
+    // } catch (error) {
+    //   console.error('Booking error:', error);
+    //   alert('Booking failed. Please try again.');
+    // }
   };
 
   return (
