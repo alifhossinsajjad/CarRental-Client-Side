@@ -44,6 +44,7 @@ const Registretion = () => {
             setUser({ ...user, displayName: name, photoURL: photo });
             event.target.reset();
             toast.success("Name and photo updated successfully");
+            navigate(location?.state || "/");
           })
           .catch((error) => {
             console.log(error);

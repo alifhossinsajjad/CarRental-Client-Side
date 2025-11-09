@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { Navigate, useLocation } from "react-router";
+import Loding from "../Pages/Loding";
 
 const PrivetRoutes = ({ children }) => {
   const { user, loading } = use(AuthContext);
@@ -8,7 +9,7 @@ const PrivetRoutes = ({ children }) => {
   const location = useLocation();
 
   if (loading) {
-    return <p>loadingggg.</p>;
+    return <div><Loding/></div>
   }
 
   if (user && user?.email) {
