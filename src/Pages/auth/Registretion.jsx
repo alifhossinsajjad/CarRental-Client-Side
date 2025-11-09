@@ -13,7 +13,6 @@ const Registretion = () => {
 
   const navigate = useNavigate();
 
-
   const handleRegister = (event) => {
     event.preventDefault();
     const email = event.target.email.value;
@@ -37,15 +36,28 @@ const Registretion = () => {
         console.log(result.user);
         toast.success("account was create successfully");
 
-        const user = result.user;
+        // const user = result.user;
 
         updateUserProfile({ displayName: name, photoURL: photo })
           .then(() => {
-            setUser({ ...user, displayName: name, photoURL: photo });
+            // setUser({ ...user, displayName: name, photoURL: photo });
+
+            const newUser = { name, email, image: photo };
+            fetch("http://localhost:3000/users", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(newUser),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+              });
+
             event.target.reset();
             toast.success("Name and photo updated successfully");
             navigate(location?.state || "/");
           })
+
           .catch((error) => {
             console.log(error);
             toast.error("Name or photo URL not updated");
@@ -62,8 +74,6 @@ const Registretion = () => {
         if (error.code === "auth/email-already-in-us") {
           toast.error("user already axist in database");
         }
-
-        // setNameError(errorCode);
       });
   };
 
