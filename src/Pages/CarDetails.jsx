@@ -61,7 +61,7 @@ const CarDetails = () => {
       .then((result) => {
         console.log("car booking done:", result);
 
-        if (result.success && result.carUpdateResult.modifiedCount > 0) {
+        if (result) {
           setCar({
             ...car,
             status: "booked",
