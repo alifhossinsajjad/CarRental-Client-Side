@@ -1,14 +1,77 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { use, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+
+import { FaEyeSlash, FaRegEye } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import toast from "react-hot-toast";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../Firebase/Firebase.config";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Login = () => {
+  const { signInUser, googleSignIn } = use(AuthContext)
 
-const {createUser}
+  const [showPassword, setShowPassword] = useState(false);
 
+  const emailRef = useRef();
 
+  const [error, setError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  const handdleLogin = (e) => {
+    e.preventDefault();
 
+    const email = e.target.email?.value;
+    const password = e.target.password.value;
 
+    console.log(email, password);
+
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        toast.success("LogIn successful");
+        navigate(location?.state || "/");
+        e.target.reset();
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        console.log(error);
+        // toast.error('invalid yor email or password')
+        setError(errorCode);
+      });
+  };
+
+  const handleForgetPassword = () => {
+    const email = emailRef.current.value;
+    if (!email) {
+      toast.error("Please provide your email address to reset password");
+      return;
+    }
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        console.log("password reset");
+        toast.success("Password reset email sent. Please check your email.");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handlegoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        console.log(result.user);
+        navigate(location?.state || "/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleShowPassord = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-green-50 to-green-100 p-4">
@@ -21,7 +84,7 @@ const {createUser}
         </div>
 
         <div className="p-8">
-          <form onSubmit={hanleLogIn} className="space-y-5">
+          <form onSubmit={handdleLogin} className="space-y-5">
             {/* Email */}
             <div className="flex flex-col">
               <label className="text-gray-700 font-medium mb-2">Email</label>

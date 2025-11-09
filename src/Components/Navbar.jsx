@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   return (
@@ -48,7 +48,6 @@ const Navbar = () => {
                 <li>
                   <NavLink to={"/browse-cars"}>Browse Cars</NavLink>
                 </li>
-               
               </ul>
             </div>
             <a className="btn btn-ghost text-xl">daisyUI</a>
@@ -70,15 +69,12 @@ const Navbar = () => {
               <li>
                 <NavLink to={"/browse-cars"}>Browse Cars</NavLink>
               </li>
-            
             </ul>
           </div>
           <div className="navbar-end">
-            <button
-
-             className="btn">
+            <Link to={"/auth/login"} className="btn">
               login
-            </button>
+            </Link>
           </div>
         </div>
       </div>
