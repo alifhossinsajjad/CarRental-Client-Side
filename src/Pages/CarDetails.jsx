@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 
 import Loding from "./Loding";
 import { FaStar } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Context/AuthContext";
 
 const CarDetails = () => {
   const [car, setCar] = useState(null);
@@ -15,6 +16,7 @@ const CarDetails = () => {
   const [updateData, setUpdateData] = useState(false);
   const { id } = useParams();
   const naviagte = useNavigate();
+  const { user } = use(AuthContext);
   // Fetch car details
   useEffect(() => {
     setLoading(true);
@@ -23,7 +25,6 @@ const CarDetails = () => {
       .then((data) => {
         setCar(data);
         setUpdateData(data);
-        // Navigate("/car-details");
         setLoading(false);
       })
       .catch((error) => {
@@ -32,40 +33,55 @@ const CarDetails = () => {
       });
   }, [id]);
 
-  // Book car function
-  //   const handleBookCar = () => {
-  //     if (!car || car.status === "booked") return;
+  //car book
+  const handleBookCar = () => {
+    if (!car || car.status === "booked") return;
 
-  //     setIsBooking(true);
+    setIsBooking(true);
 
-  //     const updatedCar = {
-  //       ...car,
-  //       status: "booked",
-  //     };
+    const bookingData = {
+      carId: id,
+      carName: car.carName,
+      carModel: car.carModel,
+      carImage: car.image,
+      rentPrice: car.rentPrice,
+      booked_by : user.email,
+      bookingDate: new Date().toISOString(),
+      status: "confirmed",
+    };
 
-  //     fetch(`http://localhost:3000/cars/${id}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(updatedCar),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((result) => {
-  //         if (result.modifiedCount > 0) {
-  //           setCar(updatedCar);
-  //           alert("Car booked successfully!");
-  //         }
-  //         setIsBooking(false);
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error booking car:", error);
-  //         alert("Failed to book car");
-  //         setIsBooking(false);
-  //       });
-  //   };
+    fetch(`http://localhost:3000/cars/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookingData),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log("car booking done:", result);
 
-  // Update car function
+        if (result.success && result.carUpdateResult.modifiedCount > 0) {
+          setCar({
+            ...car,
+            status: "booked",
+          });
+          toast.success("Car booked successfully!");
+          naviagte('/browse-cars')
+        } else {
+          toast.error("Failed to book car");
+        }
+        setIsBooking(false);
+      })
+      .catch((error) => {
+        console.log("Error booking car:", error);
+        toast.error("Failed to book car");
+        setIsBooking(false);
+      });
+  };
+
+  //update handler
+
   const handleUpdateCar = (e) => {
     e.preventDefault();
     setIsUpdating(true);
@@ -102,7 +118,8 @@ const CarDetails = () => {
       });
   };
 
-  // Delete car function
+  //detele handler
+
   const handleDeleteCar = () => {
     console.log("yes delete");
     Swal.fire({
@@ -136,7 +153,6 @@ const CarDetails = () => {
     });
   };
 
-  // Handle input changes in update form
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUpdateData({
@@ -246,27 +262,21 @@ const CarDetails = () => {
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="space-y-4">
                 <button
-                  //   onClick={handleBookCar}
+                  onClick={handleBookCar}
                   disabled={car.status === "booked" || isBooking}
                   className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all duration-200 ${
                     car.status === "booked"
                       ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800"
-                  } ${isBooking ? "opacity-50 cursor-not-allowed" : ""}`}
+                      : "bg-blue-600 hover:bg-blue-700"
+                  }`}
                 >
-                  {isBooking ? (
-                    <div className="flex items-center justify-center">
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                      Processing...
-                    </div>
-                  ) : car.status === "booked" ? (
-                    "Already Booked"
-                  ) : (
-                    "Book This Car"
-                  )}
+                  {isBooking
+                    ? "Booking..."
+                    : car.status === "booked"
+                    ? "Already Booked"
+                    : "Book This Car"}
                 </button>
 
                 <div className="grid grid-cols-2 gap-4">
@@ -286,7 +296,6 @@ const CarDetails = () => {
                 </div>
               </div>
 
-              {/* Quick Info */}
               <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="flex justify-between">
@@ -312,7 +321,6 @@ const CarDetails = () => {
             </div>
           </div>
 
-          {/* Description Section */}
           <div className="border-t border-gray-200 px-8 py-8">
             <div className="max-w-4xl">
               <h3 className="text-2xl font-semibold text-gray-900 mb-6">
@@ -346,10 +354,8 @@ const CarDetails = () => {
             </div>
           </div>
 
-          {/* Details Sections */}
           <div className="border-t border-gray-200">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
-              {/* Car Specifications */}
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-3">
                   Specifications
@@ -376,7 +382,6 @@ const CarDetails = () => {
                 </div>
               </div>
 
-              {/* Provider Information */}
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-3">
                   Provider Details
@@ -403,7 +408,6 @@ const CarDetails = () => {
                 </div>
               </div>
 
-              {/* Safety & Additional Features */}
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-3">
                   Safety & Comfort
@@ -431,11 +435,9 @@ const CarDetails = () => {
         </div>
       </div>
 
-      {/* Update Form Modal */}
       {showUpdateForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            {/* Modal Header */}
             <div className="p-6 border-b border-gray-200">
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-semibold text-gray-900">
@@ -450,7 +452,6 @@ const CarDetails = () => {
               </div>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleUpdateCar} className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
