@@ -9,6 +9,7 @@ import Registretion from "../Pages/auth/Registretion";
 import MyListing from "../Pages/MyListing";
 import MyBookings from "../Pages/MyBookings";
 import BrowseCars from "../Pages/BrowseCars";
+import CarDetails from "../Pages/CarDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
         element: (
           <PrivetRoutes>
             <MyBookings/>
+          </PrivetRoutes>
+        ),
+      },
+      {
+        path: "/car-details/:id",
+        element: (
+          <PrivetRoutes>
+            <CarDetails/>
           </PrivetRoutes>
         ),
       },

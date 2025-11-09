@@ -7,8 +7,6 @@ const BrowseCars = () => {
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     category: "all",
-    minPrice: "",
-    maxPrice: "",
     status: "all",
   });
 
@@ -16,10 +14,10 @@ const BrowseCars = () => {
     fetch("http://localhost:3000/cars")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        const carsData = Array.isArray(data) ? data : data.data || data;
-        setCars(carsData);
-        setFilteredCars(carsData);
+        // console.log(data);
+        
+        setCars(data);
+        setFilteredCars(data);
       })
       .catch((error) => {
         console.error("Error fetching cars:", error);
@@ -37,17 +35,6 @@ const BrowseCars = () => {
       filtered = filtered.filter((car) => car.carCategory === filters.category);
     }
 
-    if (filters.minPrice) {
-      filtered = filtered.filter(
-        (car) => car.rentPricePerDay >= parseInt(filters.minPrice)
-      );
-    }
-    if (filters.maxPrice) {
-      filtered = filtered.filter(
-        (car) => car.rentPricePerDay <= parseInt(filters.maxPrice)
-      );
-    }
-
     if (filters.status !== "all") {
       filtered = filtered.filter((car) => car.status === filters.status);
     }
@@ -58,8 +45,6 @@ const BrowseCars = () => {
   const handleResetFilters = () => {
     setFilters({
       category: "all",
-      minPrice: "",
-      maxPrice: "",
       status: "all",
     });
   };
@@ -115,35 +100,7 @@ const BrowseCars = () => {
               </select>
             </div>
 
-            <div>
-              <label className="label">
-                <span className="label-text font-semibold">Min Price</span>
-              </label>
-              <input
-                type="number"
-                placeholder="$0"
-                className="input input-bordered w-full"
-                value={filters.minPrice}
-                onChange={(e) =>
-                  setFilters({ ...filters, minPrice: e.target.value })
-                }
-              />
-            </div>
-
-            <div>
-              <label className="label">
-                <span className="label-text font-semibold">Max Price</span>
-              </label>
-              <input
-                type="number"
-                placeholder="$1000"
-                className="input input-bordered w-full"
-                value={filters.maxPrice}
-                onChange={(e) =>
-                  setFilters({ ...filters, maxPrice: e.target.value })
-                }
-              />
-            </div>
+          
 
             <div>
               <label className="label">
