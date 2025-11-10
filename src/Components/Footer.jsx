@@ -1,5 +1,6 @@
 import React from "react";
 import { FaAward, FaCar, FaEnvelope, FaFacebook, FaHeadset, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaPhone, FaShieldAlt, FaTwitter } from "react-icons/fa";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -55,32 +56,50 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-              Quick Links
-            </h3>
-            <ul className="space-y-3">
-              {[
-                { name: "Browse Cars", href: "/browse-cars" },
-                { name: "Featured Deals", href: "/featured" },
-                { name: "How It Works", href: "/how-it-works" },
-                { name: "Testimonials", href: "/testimonials" },
-                { name: "Blog & News", href: "/blog" },
-                { name: "Careers", href: "/careers" }
-              ].map((link, index) => (
-                <li key={index}>
-                  <a 
-                    href={link.href} 
-                    className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group"
-                  >
-                    <div className="w-1 h-1 bg-gray-500 rounded-full group-hover:bg-blue-400 transition-colors"></div>
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+         <div>
+  <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
+    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+    Quick Links
+  </h3>
+  <ul className="space-y-3">
+    <li>
+      <Link to="/" className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group">
+        <div className="w-1 h-1 bg-gray-500 rounded-full group-hover:bg-blue-400 transition-colors"></div>
+        Home
+      </Link>
+    </li>
+    <li>
+      <Link to="/my-listings" className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group">
+        <div className="w-1 h-1 bg-gray-500 rounded-full group-hover:bg-blue-400 transition-colors"></div>
+        My List
+      </Link>
+    </li>
+    <li>
+      <Link to="/my-bookings" className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group">
+        <div className="w-1 h-1 bg-gray-500 rounded-full group-hover:bg-blue-400 transition-colors"></div>
+        My Bookings
+      </Link>
+    </li>
+    <li>
+      <Link  className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group">
+        <div className="w-1 h-1 bg-gray-500 rounded-full group-hover:bg-blue-400 transition-colors"></div>
+        Testimonials
+      </Link>
+    </li>
+    <li>
+      <Link  className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group">
+        <div className="w-1 h-1 bg-gray-500 rounded-full group-hover:bg-blue-400 transition-colors"></div>
+        Blog & News
+      </Link>
+    </li>
+    <li>
+      <Link  className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-2 group">
+        <div className="w-1 h-1 bg-gray-500 rounded-full group-hover:bg-blue-400 transition-colors"></div>
+        Careers
+      </Link>
+    </li>
+  </ul>
+</div>
 
           {/* Services */}
           <div>
