@@ -1,9 +1,16 @@
 import React from 'react';
+import Banner from '../Components/Banner';
+import Carosul from './Carosul';
 
 const Home = () => {
     return (
         <div>
-          <h2>i am Home</h2>  
+          
+          <section>
+          <div>
+            <Carosul/>
+          </div>
+            </section> 
         </div>
     );
 };

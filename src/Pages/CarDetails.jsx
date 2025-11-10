@@ -9,12 +9,16 @@ import { AuthContext } from "../Context/AuthContext";
 
 const CarDetails = () => {
   const [car, setCar] = useState(null);
+ 
   const [loading, setLoading] = useState(true);
   const [isBooking, setIsBooking] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [updateData, setUpdateData] = useState(false);
+  
   const { id } = useParams();
+  console.log(id);
+
   const naviagte = useNavigate();
   const { user } = use(AuthContext);
   // Fetch car details
@@ -31,7 +35,10 @@ const CarDetails = () => {
         console.log("Error fetching car:", error);
         setLoading(false);
       });
-  }, [id]);
+  }, []);
+
+
+  console.log(car);
 
   //car book
   const handleBookCar = () => {
@@ -40,7 +47,7 @@ const CarDetails = () => {
     setIsBooking(true);
 
     const bookingData = {
-      _id: car._id,
+      _id: car.id,
       carName: car.carName,
       carModel: car.carModel,
       image: car.image,
@@ -53,7 +60,7 @@ const CarDetails = () => {
       status: "confirmed",
     };
 
-    fetch(`http://localhost:3000/my-bookings/${car.id}`, {
+    fetch(`http://localhost:3000/my-bookings/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
