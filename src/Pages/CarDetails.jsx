@@ -17,6 +17,7 @@ const CarDetails = () => {
   const [updateData, setUpdateData] = useState(false);
   
   const { id } = useParams();
+  
   console.log(id);
 
   const naviagte = useNavigate();
@@ -27,6 +28,7 @@ const CarDetails = () => {
     fetch(`http://localhost:3000/cars/${id}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setCar(data);
         setUpdateData(data);
         setLoading(false);
@@ -47,7 +49,7 @@ const CarDetails = () => {
     setIsBooking(true);
 
     const bookingData = {
-      _id: car.id,
+      carId: car._id,
       carName: car.carName,
       carModel: car.carModel,
       image: car.image,
@@ -59,6 +61,9 @@ const CarDetails = () => {
       bookingDate: new Date().toISOString(),
       status: "confirmed",
     };
+
+console.log('car data',bookingData);
+
 
     fetch(`http://localhost:3000/my-bookings/${id}`, {
       method: "POST",
@@ -141,7 +146,7 @@ const CarDetails = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/cars/${id}`, {
+        fetch(`http://localhost:3000/my-bookings/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

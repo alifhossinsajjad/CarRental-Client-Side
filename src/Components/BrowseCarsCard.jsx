@@ -4,6 +4,7 @@ import { Link } from "react-router";
 const BrowseCarsCard = ({ car }) => {
   const {
     _id,
+    carId,
     carName,
     rentPricePerDay,
     carModel,
@@ -15,6 +16,8 @@ const BrowseCarsCard = ({ car }) => {
     Seats,
     Transmission,
   } = car;
+
+  // console.log('after log',car);
 
   const getStatusColor = (status) => {
     return status === "Available"
@@ -197,7 +200,7 @@ const BrowseCarsCard = ({ car }) => {
 
         {/* View Details Button */}
         <Link
-          to={`/car-details/${_id}`}
+          to={`/car-details/${carId || _id}`}
           className="w-full mt-3 text-primary hover:text-primary-dark font-medium py-2 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 group cursor-pointer"
         >
           View Details
