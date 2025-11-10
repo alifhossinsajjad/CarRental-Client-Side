@@ -5,6 +5,7 @@ import BrowseCarsCard from "../Components/BrowseCarsCard";
 const MyBookings = () => {
   const { user } = use(AuthContext);
   const [booking, setBooking] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

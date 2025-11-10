@@ -40,17 +40,20 @@ const CarDetails = () => {
     setIsBooking(true);
 
     const bookingData = {
-      carId: id,
+      _id: car._id,
       carName: car.carName,
       carModel: car.carModel,
-      carImage: car.image,
-      rentPrice: car.rentPricePerDay,
+      image: car.image,
+      rentPricePerDay: car.rentPricePerDay,
       booked_by: user.email,
+      rating: car.rating,
+      Seats: car.Seats,
+      Transmission: car.Transmission,
       bookingDate: new Date().toISOString(),
       status: "confirmed",
     };
 
-    fetch(`http://localhost:3000/cars/${id}`, {
+    fetch(`http://localhost:3000/my-bookings/${car.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +90,7 @@ const CarDetails = () => {
     setIsUpdating(true);
 
     fetch(`http://localhost:3000/cars/${id}`, {
-      method: "PUT",
+      method: "PETCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -121,7 +124,6 @@ const CarDetails = () => {
   //detele handler
 
   const handleDeleteCar = () => {
-    console.log("yes delete");
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -134,7 +136,6 @@ const CarDetails = () => {
       if (result.isConfirmed) {
         fetch(`http://localhost:3000/cars/${id}`, {
           method: "DELETE",
-          body: JSON.stringify(result),
         })
           .then((res) => res.json())
           .then((data) => {
