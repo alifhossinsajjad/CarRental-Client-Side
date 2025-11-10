@@ -103,7 +103,6 @@ const BrowseCarsCard = ({ car }) => {
               </svg>
               <span className="text-gray-700 font-semibold ml-1">{rating}</span>
             </div>
-           
           </div>
         </div>
 

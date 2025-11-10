@@ -44,8 +44,8 @@ const CarDetails = () => {
       carName: car.carName,
       carModel: car.carModel,
       carImage: car.image,
-      rentPrice: car.rentPrice,
-      booked_by : user.email,
+      rentPrice: car.rentPricePerDay,
+      booked_by: user.email,
       bookingDate: new Date().toISOString(),
       status: "confirmed",
     };
@@ -67,7 +67,7 @@ const CarDetails = () => {
             status: "booked",
           });
           toast.success("Car booked successfully!");
-          naviagte('/browse-cars')
+          naviagte("/browse-cars");
         } else {
           toast.error("Failed to book car");
         }

@@ -15,7 +15,7 @@ const BrowseCars = () => {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
-        
+
         setCars(data);
         setFilteredCars(data);
       })
@@ -48,7 +48,6 @@ const BrowseCars = () => {
       status: "all",
     });
   };
-
 
   const categories = [...new Set(cars.map((car) => car.carCategory))];
 
@@ -99,8 +98,6 @@ const BrowseCars = () => {
                 ))}
               </select>
             </div>
-
-          
 
             <div>
               <label className="label">
