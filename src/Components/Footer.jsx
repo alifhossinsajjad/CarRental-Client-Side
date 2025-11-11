@@ -18,7 +18,7 @@ const Footer = () => {
               </div>
               <div>
                 <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  RentWheels
+                  AutoElite
                 </h2>
                 <p className="text-xs sm:text-sm text-gray-400">Premium Car Rentals</p>
               </div>

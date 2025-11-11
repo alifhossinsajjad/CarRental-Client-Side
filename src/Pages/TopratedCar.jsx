@@ -188,7 +188,7 @@ const TopratedCar = () => {
             {topRatedCars.map((car) => (
               <div key={car._id} className="group relative">
      
-                <div className="absolute -top-3 -right-3 z-20">
+                <div className="absolute top-44 -right-4 z-20">
                   <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2">
                     <FaCrown size={12} />
                     <span>TOP RATED</span>

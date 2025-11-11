@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Autoplay, Pagination, EffectCreative } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FaCar, FaStar, FaMapMarkerAlt, FaUsers, FaGasPump, FaCog, FaPlay, FaPause } from "react-icons/fa";
+import { 
+  FaStar, 
+  FaMapMarkerAlt, 
+  FaUsers, 
+  FaGasPump, 
+  FaCog, 
+  FaPlay, 
+  FaPause,
+  FaHeart,
+  FaShare,
+  FaArrowRight
+} from "react-icons/fa";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/effect-creative";
+import "swiper/css/navigation";
 import { Link } from "react-router";
 
 const Carousel = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [autoplayPlaying, setAutoplayPlaying] = useState(true);
-
 
   useEffect(() => {
     fetch("http://localhost:3000/cars")
@@ -31,10 +41,10 @@ const Carousel = () => {
 
   if (loading) {
     return (
-      <div className="h-96 bg-gradient-to-br from-gray-100 to-blue-50 rounded-3xl flex items-center justify-center">
+      <div className="h-96 bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl flex items-center justify-center border border-gray-200">
         <div className="text-center">
-          <div className="loading loading-spinner loading-lg text-primary mb-4"></div>
-          <p className="text-gray-600 font-medium">Loading premium cars...</p>
+          <div className="loading loading-spinner loading-lg text-blue-600 mb-4"></div>
+          <p className="text-gray-600 font-medium">Discovering amazing cars...</p>
         </div>
       </div>
     );
@@ -43,152 +53,157 @@ const Carousel = () => {
   const featuredCars = cars.slice(0, 6);
 
   return (
-    <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-      {/* Autoplay Control */}
-      <div className="absolute top-6 right-6 z-20">
-        <button
-          onClick={() => setAutoplayPlaying(!autoplayPlaying)}
-          className="btn btn-circle btn-sm glass text-white backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
-          title={autoplayPlaying ? "Pause" : "Play"}
-        >
-          {autoplayPlaying ? <FaPause size={14} /> : <FaPlay size={14} />}
-        </button>
+    <div className="relative rounded-3xl overflow-hidden shadow-xl border border-gray-200 bg-white">
+      {/* Header Bar */}
+      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-r from-blue-600 to-purple-600 py-3 px-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+            <span className="text-white font-semibold text-sm">Featured Premium Cars</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <button className="text-white/80 hover:text-white transition-colors">
+              <FaShare size={14} />
+            </button>
+            <button
+              onClick={() => setAutoplayPlaying(!autoplayPlaying)}
+              className="text-white/80 hover:text-white transition-colors"
+              title={autoplayPlaying ? "Pause" : "Play"}
+            >
+              {autoplayPlaying ? <FaPause size={14} /> : <FaPlay size={14} />}
+            </button>
+          </div>
+        </div>
       </div>
 
       <Swiper
-        effect={'creative'}
-        creativeEffect={{
-          prev: {
-            shadow: true,
-            translate: [0, 0, -400],
-          },
-          next: {
-            translate: ['100%', 0, 0],
-          },
-        }}
-        speed={1200}
+        speed={800}
         centeredSlides={true}
+        spaceBetween={30}
         autoplay={autoplayPlaying ? {
-          delay: 5000,
+          delay: 4000,
           disableOnInteraction: false,
           pauseOnMouseEnter: true,
         } : false}
         pagination={{
           clickable: true,
-          dynamicBullets: true,
           renderBullet: function (index, className) {
-            return `<span class="${className} custom-bullet"></span>`;
+            return `<span class="${className} modern-bullet"></span>`;
           },
         }}
-        modules={[Autoplay, Pagination, EffectCreative]}
-        className="mySwiper h-96 md:h-[500px] lg:h-[600px]"
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="modern-swiper h-96 md:h-[500px]"
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 1.2,
+          },
+          1024: {
+            slidesPerView: 1.5,
+          },
+        }}
       >
         {featuredCars.map((car) => (
           <SwiperSlide key={car._id}>
-            <div 
-              className="relative w-full h-full bg-cover bg-center"
-              style={{ backgroundImage: `url(${car.image})` }}
-            >
-           
-              <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-transparent"></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/30"></div>
+            <div className="w-full h-full bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+              <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+                {/* Image Section */}
+                <div className="relative bg-gray-100 h-64 lg:h-full">
+                  <img
+                    src={car.image}
+                    alt={car.carName}
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  {/* Image Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  
+                  {/* Top Badges */}
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <div className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${
+                      car.status === "Available" 
+                        ? "bg-green-500 text-white" 
+                        : "bg-orange-500 text-white"
+                    }`}>
+                      {car.status}
+                    </div>
+                    <div className="px-3 py-1 rounded-full bg-blue-500 text-white text-xs font-semibold backdrop-blur-sm">
+                      {car.carCategory}
+                    </div>
+                  </div>
 
-           
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-1/4 left-1/4 w-32 h-32 border-2 border-white rounded-full animate-pulse"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-24 h-24 border-2 border-white rounded-full animate-pulse delay-1000"></div>
-              </div>
+                  {/* Favorite Button */}
+                  <button className="absolute top-4 right-4 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors shadow-lg">
+                    <FaHeart className="text-gray-600 hover:text-red-500 transition-colors" size={14} />
+                  </button>
+                </div>
 
-       
-              <div className="relative z-10 h-full flex items-center">
-                <div className="container mx-auto px-6 lg:px-12">
-                  <div className="max-w-2xl text-white">
-                    
-                    {/* Premium Badge */}
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm border ${
-                        car.status === "Available" 
-                          ? "bg-green-500/20 border-green-400/50 text-green-300" 
-                          : "bg-orange-500/20 border-orange-400/50 text-orange-300"
-                      }`}>
-                        <div className={`w-2 h-2 rounded-full animate-pulse ${
-                          car.status === "Available" ? "bg-green-400" : "bg-orange-400"
-                        }`}></div>
-                        <span className="text-sm font-semibold">{car.status}</span>
+                {/* Content Section */}
+                <div className="p-6 lg:p-8 flex flex-col justify-between">
+                  {/* Header */}
+                  <div>
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-1">
+                          {car.carName}
+                        </h3>
+                        <p className="text-gray-600 text-lg">{car.carModel}</p>
                       </div>
-                      
-                      {/* Category Tag */}
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30">
-                        <FaCar className="text-blue-300" size={12} />
-                        <span className="text-sm text-blue-300 font-medium">{car.carCategory}</span>
+                      <div className="text-right">
+                        <div className="text-3xl font-bold text-blue-600">
+                          ${car.rentPricePerDay}
+                          <span className="text-sm text-gray-500">/day</span>
+                        </div>
+                        <div className="flex items-center gap-1 justify-end mt-1">
+                          <FaStar className="text-yellow-400 fill-current" size={14} />
+                          <span className="text-sm text-gray-600">4.8 (128)</span>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Car Name and Model */}
-                    <div className="mb-6">
-                      <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 leading-tight bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                        {car.carName}
-                      </h2>
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl md:text-2xl text-blue-300 font-light">
-                          {car.carModel} Model
-                        </span>
-                        <div className="w-1 h-1 bg-blue-400 rounded-full"></div>
-                        <span className="text-lg text-gray-300">{car.providerName}</span>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-lg text-gray-200 mb-8 leading-relaxed max-w-xl font-light">
-                      {car.description?.substring(0, 120)}...
+                    <p className="text-gray-600 mb-6 leading-relaxed">
+                      {car.description?.substring(0, 100)}...
                     </p>
+                  </div>
 
-                    {/* Specifications Grid */}
-                    <div className="grid grid-cols-3 gap-4 mb-8 max-w-md">
-                      <div className="text-center p-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
-                        <FaUsers className="text-blue-400 mx-auto mb-2" size={18} />
-                        <div className="text-white font-semibold">5 Seats</div>
+                  {/* Specifications */}
+                  <div className="mb-6">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">Key Features</h4>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="text-center p-3 bg-blue-50 rounded-xl border border-blue-100">
+                        <FaUsers className="text-blue-600 mx-auto mb-2" size={18} />
+                        <div className="text-sm font-semibold text-gray-900">5 Seats</div>
                       </div>
-                      <div className="text-center p-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
-                        <FaCog className="text-blue-400 mx-auto mb-2" size={18} />
-                        <div className="text-white font-semibold">Auto</div>
+                      <div className="text-center p-3 bg-green-50 rounded-xl border border-green-100">
+                        <FaCog className="text-green-600 mx-auto mb-2" size={18} />
+                        <div className="text-sm font-semibold text-gray-900">Auto</div>
                       </div>
-                      <div className="text-center p-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
-                        <FaGasPump className="text-blue-400 mx-auto mb-2" size={18} />
-                        <div className="text-white font-semibold">
+                      <div className="text-center p-3 bg-purple-50 rounded-xl border border-purple-100">
+                        <FaGasPump className="text-purple-600 mx-auto mb-2" size={18} />
+                        <div className="text-sm font-semibold text-gray-900">
                           {car.carCategory === "Electric" ? "Electric" : "Petrol"}
                         </div>
                       </div>
                     </div>
+                  </div>
 
-           
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-6">
-                        <div>
-                          <div className="text-3xl md:text-4xl font-bold text-white">
-                            ${car.rentPricePerDay}
-                            <span className="text-lg text-gray-300 ml-2">/day</span>
-                          </div>
-                          <div className="flex items-center gap-2 mt-2">
-                            <div className="flex text-yellow-400">
-                              {[1, 2, 3, 4, 5].map((star) => (
-                                <FaStar key={star} className="fill-current" size={14} />
-                              ))}
-                            </div>
-                            <span className="text-gray-300 text-sm">4.8 (128 reviews)</span>
-                          </div>
-                        </div>
-                      </div>
-
+                  {/* Location & Action */}
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                    <div className="flex items-center gap-2 text-gray-600">
+                      <FaMapMarkerAlt className="text-red-500" />
+                      <span className="text-sm">Dhaka, Bangladesh</span>
+                    </div>
                     
-                    </div>
-
-                    {/* Location */}
-                    <div className="flex items-center gap-2 mt-6 text-gray-300">
-                      <FaMapMarkerAlt className="text-red-400" />
-                      <span>Available in Dhaka, Bangladesh</span>
-                    </div>
+                    <Link 
+                      to={`/car-details/${car._id}`}
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-2 group shadow-lg hover:shadow-xl"
+                    >
+                      Book Now
+                      <FaArrowRight className="group-hover:translate-x-1 transition-transform duration-200" />
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -199,33 +214,70 @@ const Carousel = () => {
 
       {/* Custom Styles */}
       <style jsx>{`
-        .mySwiper {
+        .modern-swiper {
           border-radius: 1.5rem;
+          padding: 60px 20px 40px 20px;
         }
         
-        .custom-bullet {
-          background: rgba(255, 255, 255, 0.6);
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
+        .modern-bullet {
+          background: #cbd5e1;
+          width: 8px;
+          height: 8px;
+          border-radius: 4px;
           transition: all 0.3s ease;
-          margin: 0 6px !important;
+          margin: 0 4px !important;
+          opacity: 0.6;
         }
         
-        .custom-bullet:hover {
-          background: rgba(255, 255, 255, 0.9);
-          transform: scale(1.3);
-        }
-        
-        .swiper-pagination-bullet-active {
-          background: #3B82F6 !important;
-          width: 30px;
-          border-radius: 8px;
+        .modern-bullet:hover {
+          background: #64748b;
           transform: scale(1.2);
         }
         
+        .swiper-pagination-bullet-active {
+          background: #2563eb !important;
+          width: 24px;
+          border-radius: 6px;
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        
         .swiper-pagination {
-          bottom: 20px !important;
+          bottom: 15px !important;
+        }
+        
+        .swiper-button-next,
+        .swiper-button-prev {
+          color: #2563eb;
+          background: white;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          border: 1px solid #e2e8f0;
+        }
+        
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+          font-size: 16px;
+          font-weight: bold;
+        }
+        
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+          background: #2563eb;
+          color: white;
+        }
+        
+        .swiper-slide {
+          opacity: 0.6;
+          transform: scale(0.9);
+          transition: all 0.4s ease;
+        }
+        
+        .swiper-slide-active {
+          opacity: 1;
+          transform: scale(1);
         }
       `}</style>
     </div>
