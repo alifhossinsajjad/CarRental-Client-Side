@@ -187,7 +187,7 @@ const AddCarModal = () => {
                 <select
                   name="carModel"
                   required
-                  className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none border border-red-400"
+                  className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none "
                 >
                   <option value="">Select Year</option>
                   {modelYears.map((year) => (
