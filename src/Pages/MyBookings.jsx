@@ -23,7 +23,9 @@ const MyBookings = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3000/my-bookings?email=${user.email}`)
+    fetch(
+      `https://car-re-ntal-server-side.vercel.app/my-bookings?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log("Bookings data:", data);
@@ -53,9 +55,12 @@ const MyBookings = () => {
       if (result.isConfirmed) {
         setCancellingId(bookingId);
 
-        fetch(`http://localhost:3000/my-bookings/${carId}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://car-re-ntal-server-side.vercel.app/my-bookings/${carId}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             // console.log("Cancel booking response:", data);

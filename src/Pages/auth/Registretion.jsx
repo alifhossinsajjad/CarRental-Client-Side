@@ -1,17 +1,17 @@
-import React, { use, useState } from "react";
+import { use, useState } from "react";
 
 import toast, { Toaster } from "react-hot-toast";
 import {
-  FaEyeSlash,
-  FaRegEye,
-  FaCar,
   FaArrowRight,
-  FaUser,
+  FaCar,
+  FaEyeSlash,
   FaImage,
+  FaRegEye,
+  FaUser,
 } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { AuthContext } from "../../Context/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Registration = () => {
   const { createUser, updateUserProfile, googleSignIn } = use(AuthContext);
@@ -71,11 +71,14 @@ const Registration = () => {
         role: "user",
       };
 
-      const dbResponse = await fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(newUser),
-      });
+      const dbResponse = await fetch(
+        "https://car-re-ntal-server-side.vercel.app/users",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(newUser),
+        }
+      );
 
       const dbData = await dbResponse.json();
       console.log("User saved to DB:", dbData);

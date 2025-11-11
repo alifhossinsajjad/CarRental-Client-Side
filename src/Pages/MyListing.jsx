@@ -1,11 +1,19 @@
-import React, { use, useEffect, useState } from "react";
-import { AuthContext } from "../Context/AuthContext";
-import Loading from "../Pages/Loding";
-import BrowseCarsCard from "../Components/BrowseCarsCard";
-import { FaEdit, FaTrash, FaCar, FaPlus, FaChartLine, FaUsers, FaDollarSign } from "react-icons/fa";
+import { use, useEffect, useState } from "react";
+import {
+  FaCar,
+  FaChartLine,
+  FaDollarSign,
+  FaEdit,
+  FaPlus,
+  FaTrash,
+  FaUsers,
+} from "react-icons/fa";
+import { Link } from "react-router";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { Link } from "react-router";
+import BrowseCarsCard from "../Components/BrowseCarsCard";
+import { AuthContext } from "../Context/AuthContext";
+import Loading from "../Pages/Loding";
 
 const MyListing = () => {
   const { user } = use(AuthContext);
@@ -21,7 +29,9 @@ const MyListing = () => {
 
   const fetchMyListings = () => {
     setLoading(true);
-    fetch(`http://localhost:3000/my-listing?email=${user.email}`)
+    fetch(
+      `https://car-re-ntal-server-side.vercel.app/my-listing?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -46,14 +56,14 @@ const MyListing = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/cars/${carId}`, {
+        fetch(`https://car-re-ntal-server-side.vercel.app/cars/${carId}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
             // console.log(data);
             if (data.deletedCount > 0) {
-              setListCar(prev => prev.filter(car => car._id !== carId));
+              setListCar((prev) => prev.filter((car) => car._id !== carId));
               Swal.fire({
                 title: "Deleted!",
                 text: "Your car has been deleted.",
@@ -77,7 +87,7 @@ const MyListing = () => {
     e.preventDefault();
     setIsUpdating(true);
 
-    fetch(`http://localhost:3000/cars/${updateData._id}`, {
+    fetch(`https://car-re-ntal-server-side.vercel.app/cars/${updateData._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -87,10 +97,8 @@ const MyListing = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          setListCar(prev => 
-            prev.map(car => 
-              car._id === updateData._id ? updateData : car
-            )
+          setListCar((prev) =>
+            prev.map((car) => (car._id === updateData._id ? updateData : car))
           );
           setShowUpdateForm(false);
           setUpdateData(null);
@@ -140,27 +148,35 @@ const MyListing = () => {
 
   // Calculate stats
   const totalCars = listCar.length;
- 
-  const totalEarnings = listCar.reduce((sum, car) => sum + (car.rentPricePerDay || 0), 0);
+
+  const totalEarnings = listCar.reduce(
+    (sum, car) => sum + (car.rentPricePerDay || 0),
+    0
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 py-8">
       {/* Background Decorations */}
       <div className="fixed top-0 left-0 w-72 h-72 bg-blue-100 rounded-full blur-3xl opacity-30 -translate-x-1/2 -translate-y-1/2"></div>
       <div className="fixed bottom-0 right-0 w-96 h-96 bg-indigo-100 rounded-full blur-3xl opacity-30 translate-x-1/3 translate-y-1/3"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Section */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-2xl px-6 py-3 shadow-lg border border-gray-100 mb-6">
             <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-semibold text-gray-700">Active Listings</span>
+            <span className="text-sm font-semibold text-gray-700">
+              Active Listings
+            </span>
           </div>
-          
+
           <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            My Car <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Listings</span>
+            My Car{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+              Listings
+            </span>
           </h1>
-          
+
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Manage your car collection and connect with travelers worldwide
           </p>
@@ -175,13 +191,13 @@ const MyListing = () => {
                   <FaCar className="text-2xl text-blue-600" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-gray-900">{totalCars}</div>
+                  <div className="text-2xl font-bold text-gray-900">
+                    {totalCars}
+                  </div>
                   <div className="text-sm text-gray-600">Total Cars</div>
                 </div>
               </div>
             </div>
-
-            
 
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100">
               <div className="flex items-center gap-4">
@@ -189,7 +205,9 @@ const MyListing = () => {
                   <FaDollarSign className="text-2xl text-purple-600" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-gray-900">${totalEarnings}</div>
+                  <div className="text-2xl font-bold text-gray-900">
+                    ${totalEarnings}
+                  </div>
                   <div className="text-sm text-gray-600">Daily Potential</div>
                 </div>
               </div>
@@ -204,13 +222,14 @@ const MyListing = () => {
               <div className="w-32 h-32 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg">
                 <FaCar className="text-5xl text-blue-500" />
               </div>
-              
+
               <h2 className="text-3xl font-bold text-gray-800 mb-4">
                 No Cars Listed Yet
               </h2>
-              
+
               <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                Start your car sharing journey today. List your first car and begin earning from your vehicle.
+                Start your car sharing journey today. List your first car and
+                begin earning from your vehicle.
               </p>
 
               <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 mb-8">
@@ -218,7 +237,9 @@ const MyListing = () => {
                   <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                     <FaPlus className="text-blue-600" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-800">Why list your car?</h3>
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    Why list your car?
+                  </h3>
                 </div>
                 <ul className="text-left text-gray-600 space-y-2">
                   <li className="flex items-center gap-2">
@@ -236,7 +257,10 @@ const MyListing = () => {
                 </ul>
               </div>
 
-              <Link to={'/add-car'} className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-3 mx-auto">
+              <Link
+                to={"/add-car"}
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-3 mx-auto"
+              >
                 <FaPlus />
                 Add Your First Car
               </Link>
@@ -266,8 +290,6 @@ const MyListing = () => {
                     </button>
                   </div>
 
-                
-
                   {/* Card Container */}
                   <div className="bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden group-hover:scale-105">
                     <BrowseCarsCard car={car} />
@@ -287,8 +309,9 @@ const MyListing = () => {
                     Your Listings Are Live! 🎉
                   </h3>
                   <p className="text-gray-600">
-                    Your cars are now visible to thousands of potential renters. 
-                    Keep your listings updated for better visibility and more bookings.
+                    Your cars are now visible to thousands of potential renters.
+                    Keep your listings updated for better visibility and more
+                    bookings.
                   </p>
                 </div>
               </div>
@@ -306,7 +329,9 @@ const MyListing = () => {
               <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <FaEdit className="text-xl text-blue-600" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-2">Update Regularly</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">
+                Update Regularly
+              </h4>
               <p className="text-gray-600 text-sm">
                 Keep your car details and photos current to attract more renters
               </p>
@@ -315,7 +340,9 @@ const MyListing = () => {
               <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <FaDollarSign className="text-xl text-green-600" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-2">Competitive Pricing</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">
+                Competitive Pricing
+              </h4>
               <p className="text-gray-600 text-sm">
                 Set fair prices based on market rates and car features
               </p>
@@ -324,7 +351,9 @@ const MyListing = () => {
               <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <FaUsers className="text-xl text-purple-600" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-2">Quick Responses</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">
+                Quick Responses
+              </h4>
               <p className="text-gray-600 text-sm">
                 Respond promptly to booking requests for better conversion
               </p>
@@ -344,7 +373,9 @@ const MyListing = () => {
                   <h2 className="text-2xl font-bold text-gray-900">
                     Update Car Details
                   </h2>
-                  <p className="text-gray-600 mt-1">Edit your car information</p>
+                  <p className="text-gray-600 mt-1">
+                    Edit your car information
+                  </p>
                 </div>
                 <button
                   onClick={() => {
@@ -364,13 +395,27 @@ const MyListing = () => {
                 {[
                   { label: "Car Name", name: "carName", type: "text" },
                   { label: "Car Model", name: "carModel", type: "text" },
-                  { label: "Price Per Day ($)", name: "rentPricePerDay", type: "number" },
+                  {
+                    label: "Price Per Day ($)",
+                    name: "rentPricePerDay",
+                    type: "number",
+                  },
                   { label: "Category", name: "carCategory", type: "text" },
                   { label: "Seats", name: "Seats", type: "number" },
                   { label: "Transmission", name: "Transmission", type: "text" },
                   { label: "Climate", name: "Climate", type: "text" },
-                  { label: "Rating", name: "rating", type: "number", step: "0.1" },
-                  { label: "Image URL", name: "image", type: "url", colSpan: "md:col-span-2" },
+                  {
+                    label: "Rating",
+                    name: "rating",
+                    type: "number",
+                    step: "0.1",
+                  },
+                  {
+                    label: "Image URL",
+                    name: "image",
+                    type: "url",
+                    colSpan: "md:col-span-2",
+                  },
                 ].map((field, index) => (
                   <div key={index} className={field.colSpan || ""}>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -408,7 +453,9 @@ const MyListing = () => {
                   </label>
                   <textarea
                     name="features"
-                    value={updateData.features ? updateData.features.join(", ") : ""}
+                    value={
+                      updateData.features ? updateData.features.join(", ") : ""
+                    }
                     onChange={(e) => {
                       const featuresArray = e.target.value
                         .split(",")

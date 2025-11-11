@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import Loading from "../Pages/Loding";
-import BrowseCarsCard from "../Components/BrowseCarsCard";
+import { useEffect, useState } from "react";
 import {
-  FaCrown,
   FaArrowRight,
   FaCar,
-  FaStar,
   FaCheckCircle,
-  FaShieldAlt,
+  FaCrown,
   FaQuoteLeft,
+  FaShieldAlt,
+  FaStar,
 } from "react-icons/fa";
 import { Link } from "react-router";
+import BrowseCarsCard from "../Components/BrowseCarsCard";
+import Loading from "../Pages/Loding";
 
-import person1 from '../assets/person1.jpeg'
-import person2 from '../assets/person2.jpeg'
+import person1 from "../assets/person1.jpeg";
+import person2 from "../assets/person2.jpeg";
 // import person3 from '../assets/person3.jpeg'
-import person4 from '../assets/person4.jpg'
-import person5 from '../assets/person5.jpg'
+import person4 from "../assets/person4.jpg";
+import person5 from "../assets/person5.jpg";
 
 const TopratedCar = () => {
   const [topRatedCars, setTopRatedCars] = useState([]);
@@ -64,7 +64,7 @@ const TopratedCar = () => {
   ];
 
   useEffect(() => {
-    fetch("http://localhost:3000/cars")
+    fetch("https://car-re-ntal-server-side.vercel.app/cars")
       .then((res) => res.json())
       .then((data) => {
         const filteredCars = data
@@ -111,13 +111,11 @@ const TopratedCar = () => {
 
   return (
     <section className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 overflow-hidden ">
-
       <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full blur-3xl opacity-60 -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-r from-purple-50 to-pink-50 rounded-full blur-3xl opacity-60 translate-x-1/3 translate-y-1/3"></div>
       <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-gradient-to-r from-blue-100 to-cyan-100 rounded-full blur-3xl opacity-40 -translate-x-1/2 -translate-y-1/2"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-3 rounded-full text-sm font-bold mb-6 shadow-lg shadow-orange-500/25">
             <FaCrown className="text-white" />
@@ -182,12 +180,10 @@ const TopratedCar = () => {
           </div>
         </div>
 
-   
         {topRatedCars.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {topRatedCars.map((car) => (
               <div key={car._id} className="group relative">
-     
                 <div className="absolute top-44 -right-4 z-20">
                   <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2">
                     <FaCrown size={12} />
@@ -196,10 +192,8 @@ const TopratedCar = () => {
                 </div>
 
                 <div className="relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group-hover:scale-105 border border-gray-100 overflow-hidden">
-         
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
 
-           
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
 
                   <BrowseCarsCard car={car} />
@@ -250,27 +244,23 @@ const TopratedCar = () => {
 
           {/* testimonial Cards */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-        
             <div className="relative bg-white rounded-3xl p-8 shadow-2xl border border-gray-100">
-            
               <div className="absolute top-6 right-6 w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl flex items-center justify-center">
                 <FaQuoteLeft className="text-purple-500 text-2xl" />
               </div>
 
-  
               <div className="flex items-center gap-1 mb-6">
                 {renderStars(testimonials[activeTestimonial].rating)}
               </div>
 
-         
               <p className="text-gray-700 text-lg leading-relaxed mb-6 pr-8">
                 "{testimonials[activeTestimonial].text}"
               </p>
 
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-                  <img 
-                    src={testimonials[activeTestimonial].image} 
+                  <img
+                    src={testimonials[activeTestimonial].image}
                     alt={testimonials[activeTestimonial].name}
                     className="w-full h-full object-cover"
                   />
@@ -288,7 +278,6 @@ const TopratedCar = () => {
                 </div>
               </div>
 
-        
               <div className="flex gap-2 mt-8">
                 {testimonials.map((_, index) => (
                   <button
@@ -304,7 +293,6 @@ const TopratedCar = () => {
               </div>
             </div>
 
-          
             <div className="grid grid-cols-1 gap-6">
               {testimonials
                 .filter((_, index) => index !== activeTestimonial)
@@ -321,8 +309,8 @@ const TopratedCar = () => {
                   >
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-md">
-                        <img 
-                          src={testimonial.image} 
+                        <img
+                          src={testimonial.image}
                           alt={testimonial.name}
                           className="w-full h-full object-cover"
                         />
@@ -384,17 +372,14 @@ const TopratedCar = () => {
                 <FaCrown className="text-white" />
                 <span>Exclusive Collection</span>
               </div>
-
               <h3 className="text-4xl font-bold text-gray-900 mb-6">
                 Ready to Experience Premium?
               </h3>
-
               <p className="text-gray-600 mb-8 text-lg max-w-2xl mx-auto leading-relaxed">
                 Join thousands of satisfied customers who've chosen our
                 top-rated vehicles for their exceptional journeys. Experience
                 luxury like never before.
               </p>
-
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Link
                   to={"/browse-cars"}
@@ -404,7 +389,7 @@ const TopratedCar = () => {
                   <FaArrowRight className="group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </div>
-0
+              0
               <div className="flex flex-wrap justify-center gap-6 mt-8 pt-8 border-t border-gray-200">
                 <div className="flex items-center gap-2 text-gray-500 text-sm">
                   <FaCheckCircle className="text-green-500" />
