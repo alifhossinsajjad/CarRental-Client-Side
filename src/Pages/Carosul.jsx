@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
 import {
-  FaPlay,
-  FaPause,
-  FaHeart,
   FaArrowRight,
-  FaCrown,
-  FaStar,
-  FaHandSparkles,
   FaCar,
+  FaCrown,
+  FaHandSparkles,
+  FaHeart,
+  FaPause,
+  FaPlay,
+  FaStar,
 } from "react-icons/fa";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
 import { Link } from "react-router";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const Carousel = () => {
   const [cars, setCars] = useState([]);
@@ -54,13 +54,11 @@ const Carousel = () => {
 
   return (
     <div className="relative w-full overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 min-h-[600px]">
-      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-10 w-64 h-64 border-2 border-white rounded-full animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-48 h-48 border-2 border-white rounded-full animate-pulse delay-1000"></div>
       </div>
 
-      {/* Header Overlay */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/40 to-transparent py-6 px-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -96,7 +94,7 @@ const Carousel = () => {
         }
         pagination={{
           clickable: true,
-          renderBullet: function (index, className) {
+          renderBullet: function (className) {
             return `<span class="${className} premium-bullet"></span>`;
           },
         }}
@@ -115,7 +113,6 @@ const Carousel = () => {
         {featuredCars.map((car) => (
           <SwiperSlide key={car._id}>
             <div className="w-full h-full relative">
-              {/* Background Image with Overlay */}
               <div
                 className="absolute inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url(${car.image})` }}
@@ -124,13 +121,10 @@ const Carousel = () => {
                 <div className="absolute inset-0 bg-gradient-to-l from-black/30 via-transparent to-black/30"></div>
               </div>
 
-              {/* Content Container */}
               <div className="relative z-10 h-full flex items-center">
                 <div className="container mx-auto px-8 lg:px-16">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    {/* Left Content - Minimal Info */}
                     <div className="text-white max-w-2xl">
-                      {/* Premium Badge */}
                       <div className="flex items-center gap-3 mb-6">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/20 backdrop-blur-sm border border-amber-400/50">
                           <FaCrown className="text-amber-300" />
@@ -140,12 +134,10 @@ const Carousel = () => {
                         </div>
                       </div>
 
-                      {/* Car Name Only - Creates Curiosity */}
                       <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 leading-tight bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                         {car.carName}
                       </h1>
 
-                      {/* Intriguing Tagline */}
                       <p className="text-2xl text-blue-300 mb-8 font-light italic">
                         Experience the extraordinary...
                       </p>
@@ -174,7 +166,6 @@ const Carousel = () => {
                         </div>
                       </div>
 
-                      {/* Teaser Text */}
                       <div className="mb-8">
                         <p className="text-xl text-gray-300 mb-4">
                           Ready for an unforgettable driving experience?
@@ -185,14 +176,13 @@ const Carousel = () => {
                         </div>
                       </div>
 
-                      {/* Strong CTA - No Details */}
                       <div className="flex items-center gap-4">
                         <Link
-                          to={`/car-details/${car._id}`}
+                          to={"/browse-cars"}
                           className="group relative bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-3 shadow-2xl hover:shadow-3xl text-lg overflow-hidden"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                          <span>Discover This Car</span>
+                          <span>Browse the car</span>
                           <FaArrowRight className="group-hover:translate-x-2 transition-transform duration-200" />
                         </Link>
 

@@ -151,7 +151,7 @@ const TopratedCar = () => {
             <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 min-w-[140px]">
               <div className="text-3xl font-bold text-gray-900 flex items-center justify-center gap-2">
                 {
-                  topRatedCars.filter((car) => car.status === "available")
+                  topRatedCars.filter((car) => car.status === "Available")
                     .length
                 }
                 <FaCar className="text-blue-500 text-xl" />

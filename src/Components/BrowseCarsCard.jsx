@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router";
 
 const BrowseCarsCard = ({ car }) => {
@@ -38,7 +37,6 @@ const BrowseCarsCard = ({ car }) => {
 
   return (
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:transform hover:-translate-y-2">
-      
       <div className="relative overflow-hidden">
         <img
           src={image}
@@ -68,9 +66,7 @@ const BrowseCarsCard = ({ car }) => {
         </div>
       </div>
 
-      {/* Content Section */}
       <div className="p-5">
-        {/* Car Name and Provider */}
         <div className="mb-3">
           <h3 className="text-xl font-bold text-gray-800 mb-1 line-clamp-1">
             {carName}
@@ -93,7 +89,6 @@ const BrowseCarsCard = ({ car }) => {
           </p>
         </div>
 
-        {/* Price Section */}
         <div className="flex items-center justify-between mb-4">
           <div>
             <span className="text-2xl font-bold text-primary">

@@ -1,11 +1,10 @@
-import React, { useState, useEffect, use } from "react";
+import { use, useEffect, useState } from "react";
 
-import Loding from "./Loding";
 import { FaStar } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
-import Swal from "sweetalert2";
 import { AuthContext } from "../Context/AuthContext";
+import Loding from "./Loding";
 
 const CarDetails = () => {
   const [car, setCar] = useState(null);
@@ -86,8 +85,6 @@ const CarDetails = () => {
       });
   };
 
- 
-
   if (loading) {
     return <Loding />;
   }
@@ -109,7 +106,6 @@ const CarDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <h1 className="text-3xl font-bold text-gray-900">Car Details</h1>
@@ -117,11 +113,8 @@ const CarDetails = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Main Content */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          {/* Image and Basic Info */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
-            {/* Car Image */}
             <div className="space-y-4">
               <div className="relative rounded-xl overflow-hidden bg-gray-100">
                 <img
@@ -129,19 +122,18 @@ const CarDetails = () => {
                   alt={car.carName}
                   className="w-full h-80 object-cover"
                 />
-                {/* Fixed Status Badge - Now shows both available and booked with proper colors */}
+
                 <div
                   className={`absolute top-4 right-4 px-4 py-2 rounded-lg font-medium text-sm border ${
-                    car.status === "available"
+                    car.status === "Available"
                       ? "bg-green-100 border-green-200 text-green-700"
                       : "bg-red-100 border-red-200 text-red-700"
                   }`}
                 >
-                  {car.status === "available" ? "Available" : "Booked"}
+                  {car.status === "Available" ? "Available" : "Booked"}
                 </div>
               </div>
 
-              {/* Quick Stats */}
               <div className="grid grid-cols-3 gap-4">
                 <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-100">
                   <div className="text-lg  text-blue-600">{car.Seats}</div>
@@ -164,7 +156,6 @@ const CarDetails = () => {
               </div>
             </div>
 
-            {/* Car Info */}
             <div className="space-y-6">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -197,21 +188,19 @@ const CarDetails = () => {
               <div className="space-y-4">
                 <button
                   onClick={handleBookCar}
-                  disabled={car.status === "booked" || isBooking}
+                  disabled={car.status === "Booked" || isBooking}
                   className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all duration-200 ${
-                    car.status === "booked"
+                    car.status === "Booked"
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-blue-600 hover:bg-blue-700"
                   }`}
                 >
                   {isBooking
                     ? "Booking..."
-                    : car.status === "booked"
+                    : car.status === "Booked"
                     ? "Already Booked"
                     : "Book This Car"}
                 </button>
-
-                
               </div>
 
               <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
@@ -224,10 +213,9 @@ const CarDetails = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Status:</span>
-                    {/* Fixed Status Display - Now with background colors */}
                     <span
                       className={`font-medium px-2 py-1 rounded ${
-                        car.status === "available"
+                        car.status === "Available"
                           ? "text-green-700 bg-green-100"
                           : "text-red-700 bg-red-100"
                       }`}
@@ -353,8 +341,6 @@ const CarDetails = () => {
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 };

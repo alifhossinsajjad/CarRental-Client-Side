@@ -1,6 +1,13 @@
-import React from "react";
-import { FaCalendarCheck, FaCar, FaClock, FaDollarSign, FaHeadset, FaShieldAlt, FaStar, FaUsers } from "react-icons/fa";
-
+import {
+  FaCalendarCheck,
+  FaCar,
+  FaClock,
+  FaDollarSign,
+  FaHeadset,
+  FaShieldAlt,
+  FaStar,
+  FaUsers,
+} from "react-icons/fa";
 
 const RentCar = () => {
   const benefits = [
@@ -53,7 +60,7 @@ const RentCar = () => {
         "Round-the-clock customer support ready to assist you whenever you need help on your journey.",
       features: [
         "24/7 phone support",
-        "Live chat available",
+        "Live chat Available",
         "Roadside assistance",
       ],
       color: "from-orange-500 to-red-500",

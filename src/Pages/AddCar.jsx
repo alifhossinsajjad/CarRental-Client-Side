@@ -1,20 +1,20 @@
-import React, { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import {
-  FaCar,
-  FaMoneyBillWave,
-  FaUser,
   FaCalendarAlt,
+  FaCar,
+  FaCog,
   FaImage,
   FaList,
-  FaCog,
-  FaUsers,
-  FaSnowflake,
+  FaMoneyBillWave,
   FaPlus,
+  FaSnowflake,
   FaStar,
+  FaUser,
+  FaUsers,
 } from "react-icons/fa";
 import { useNavigate } from "react-router";
-import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-toastify";
+import { AuthContext } from "../Context/AuthContext";
 
 const AddCarModal = () => {
   const { user } = useContext(AuthContext);
