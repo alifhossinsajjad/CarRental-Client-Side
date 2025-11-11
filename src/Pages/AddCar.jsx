@@ -48,7 +48,7 @@ const AddCarModal = () => {
       Seats: Number(e.target.seats.value),
       Transmission: e.target.transmission.value,
       Climate: e.target.climate.value,
-      rating: rating, // Use the state value
+      rating: rating,
       status: "Available",
       created_at: new Date().toISOString(),
       created_by: user.email || "user",
@@ -74,11 +74,11 @@ const AddCarModal = () => {
       toast.error(data.message || "Failed to add car");
     }
   };
-  // Star Rating Component
+
   const StarRating = ({ rating, setRating }) => {
     return (
       <div className="flex items-center gap-2">
-        {[2, 3, 4,4.5,4.6,4.8, 5].map((star) => (
+        {[2, 3, 4, 4.5, 4.6, 4.8, 5].map((star) => (
           <button
             key={star}
             type="button"
@@ -149,7 +149,7 @@ const AddCarModal = () => {
                 type="text"
                 name="carName"
                 required
-                className="input input-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
+                className="input input-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none "
                 placeholder="e.g., Tesla Model 3, Toyota Camry"
               />
             </div>
@@ -172,7 +172,7 @@ const AddCarModal = () => {
                     required
                     min="1"
                     step="0.01"
-                    className="input input-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4 pl-10"
+                    className="input input-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none  pl-10"
                     placeholder="0.00"
                   />
                 </div>
@@ -209,7 +209,7 @@ const AddCarModal = () => {
                 type="text"
                 name="providerName"
                 required
-                className="input input-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
+                className="input input-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none "
                 placeholder="e.g., EcoMotion Rentals, CityDrive Rentals"
               />
             </div>
@@ -223,7 +223,7 @@ const AddCarModal = () => {
               <select
                 name="carCategory"
                 required
-                className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
+                className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none "
               >
                 <option value="">Select Category</option>
                 {carCategories.map((category) => (
@@ -244,7 +244,7 @@ const AddCarModal = () => {
                 type="url"
                 name="image"
                 required
-                className="input input-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
+                className="input input-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none "
                 placeholder="https://example.com/car-image.jpg"
               />
             </div>
@@ -306,7 +306,7 @@ const AddCarModal = () => {
                 <select
                   name="seats"
                   required
-                  className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
+                  className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none "
                 >
                   <option value="">Select Seats</option>
                   {seatOptions.map((seats) => (
@@ -326,7 +326,7 @@ const AddCarModal = () => {
                 <select
                   name="transmission"
                   required
-                  className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
+                  className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none "
                 >
                   <option value="">Select Transmission</option>
                   {transmissionOptions.map((transmission) => (
@@ -337,7 +337,6 @@ const AddCarModal = () => {
                 </select>
               </div>
 
-              {/* Climate Control */}
               <div>
                 <label className="label font-semibold flex items-center gap-2">
                   <FaSnowflake className="text-blue-600" />
@@ -346,7 +345,7 @@ const AddCarModal = () => {
                 <select
                   name="climate"
                   required
-                  className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
+                  className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none "
                 >
                   <option value="">Select Climate</option>
                   {climateOptions.map((climate) => (
