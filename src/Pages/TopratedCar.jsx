@@ -12,13 +12,13 @@ const TopratedCar = () => {
         const filteredCars = data
           .filter((car) => car.rating >= 4.9)
           .sort((a, b) => b.rating - a.rating)
-          .slice(0, 6); //
+          .slice(0, 6);
 
         setTopRatedCars(filteredCars);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching top rated cars:", error);
+        console.error(" cars does not found:", error);
         setLoading(false);
       });
   }, []);

@@ -1,5 +1,17 @@
 import React, { useState, useContext } from "react";
-import { FaCar, FaMoneyBillWave, FaUser, FaCalendarAlt, FaImage, FaList, FaCog, FaUsers, FaSnowflake, FaPlus } from "react-icons/fa";
+import {
+  FaCar,
+  FaMoneyBillWave,
+  FaUser,
+  FaCalendarAlt,
+  FaImage,
+  FaList,
+  FaCog,
+  FaUsers,
+  FaSnowflake,
+  FaPlus,
+  FaStar,
+} from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-toastify";
@@ -8,10 +20,11 @@ const AddCarModal = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [rating, setRating] = useState(4.5); // Default rating
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!user) {
       alert("Please login to add a car");
       navigate("/login");
@@ -20,70 +33,93 @@ const AddCarModal = () => {
 
     setIsLoading(true);
 
-    try {
-      const formData = {
-        carName: e.target.carName.value,
-        rentPricePerDay: Number(e.target.rentPricePerDay.value),
-        carModel: e.target.carModel.value,
-        providerName: e.target.providerName.value,
-        carCategory: e.target.carCategory.value,
-        image: e.target.image.value,
-        description: e.target.description.value,
-        features: e.target.features.value.split(',').map(feature => feature.trim()).filter(feature => feature),
-        Seats: Number(e.target.seats.value),
-        Transmission: e.target.transmission.value,
-        Climate: e.target.climate.value,
-        rating: 4.5, 
-        status: "Available",
-        created_at: new Date().toISOString(),
-        created_by: user.email || "user"
-      };
+    const formData = {
+      carName: e.target.carName.value,
+      rentPricePerDay: Number(e.target.rentPricePerDay.value),
+      carModel: e.target.carModel.value,
+      providerName: e.target.providerName.value,
+      carCategory: e.target.carCategory.value,
+      image: e.target.image.value,
+      description: e.target.description.value,
+      features: e.target.features.value
+        .split(",")
+        .map((feature) => feature.trim())
+        .filter((feature) => feature),
+      Seats: Number(e.target.seats.value),
+      Transmission: e.target.transmission.value,
+      Climate: e.target.climate.value,
+      rating: rating, // Use the state value
+      status: "Available",
+      created_at: new Date().toISOString(),
+      created_by: user.email || "user",
+    };
 
-      console.log("Submitting car data:", formData);
+    console.log("Submitting car data:", formData);
 
-      const response = await fetch("http://localhost:3000/cars", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    const response = await fetch("http://localhost:3000/cars", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-      const data = await response.json();
-      console.log("Server response:", data);
+    const data = await response.json();
+    console.log("car data", data);
 
-      if (data.success) {
-        toast.success("Car added successfully!");
-        navigate("/browse-cars");
-      } else {
-        toast.error(data.message || "Failed to add car");
-      }
-    } catch (err) {
-      console.error("Error adding car:", err);
-      toast.error("Error adding car. Please try again.");
-    } finally {
-      setIsLoading(false);
+    if (data.success) {
+      toast.success("Car added successfully!");
+      navigate("/browse-cars");
+    } else {
+      toast.error(data.message || "Failed to add car");
     }
   };
+  // Star Rating Component
+  const StarRating = ({ rating, setRating }) => {
+    return (
+      <div className="flex items-center gap-2">
+        {[2, 3, 4.5, 4.7, 4.8, 5].map((star) => (
+          <button
+            key={star}
+            type="button"
+            onClick={() => setRating(star)}
+            className={`text-2xl transition-all duration-200 ${
+              star <= rating ? "text-yellow-400" : "text-gray-300"
+            } hover:text-yellow-500 hover:scale-110`}
+          >
+            <FaStar />
+          </button>
+        ))}
+        <span className="ml-2 text-lg font-semibold text-gray-700">
+          {rating}.0
+        </span>
+      </div>
+    );
+  };
 
-  // ... rest of your component remains the same
-  const carCategories = [
-    "Sedan", "SUV", "Hatchback", "Luxury", "Electric"
-  ];
+  const carCategories = ["Sedan", "SUV", "Hatchback", "Luxury", "Electric"];
 
   const transmissionOptions = [
-    "Automatic", "Manual", "CVT", "Single-Speed Automatic", "Dual-Clutch"
+    "Automatic",
+    "Manual",
+    "CVT",
+    "Single-Speed Automatic",
+    "Dual-Clutch",
   ];
 
   const climateOptions = [
-    "Manual AC", "Automatic Climate Control", "Dual-Zone Climate Control", 
-    "Tri-Zone Climate Control", "Four-Zone Climate Control"
+    "Manual AC",
+    "Automatic Climate Control",
+    "Dual-Zone Climate Control",
+    "Tri-Zone Climate Control",
+    "Four-Zone Climate Control",
   ];
 
   const seatOptions = [2, 4, 5, 6, 7, 8];
 
-  const currentYear = new Date().getFullYear();
-  const modelYears = Array.from({ length: 10 }, (_, i) => currentYear - i);
+  const modelYears = [
+    2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015,
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4 flex items-center justify-center">
@@ -127,7 +163,9 @@ const AddCarModal = () => {
                   Rent Price Per Day ($)
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                  <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500">
+                    $
+                  </span>
                   <input
                     type="number"
                     name="rentPricePerDay"
@@ -149,11 +187,13 @@ const AddCarModal = () => {
                 <select
                   name="carModel"
                   required
-                  className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
+                  className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none border border-red-400"
                 >
-                  <option value="">Select Year</option>
-                  {modelYears.map(year => (
-                    <option key={year} value={year}>{year}</option>
+                  <option  value="">Select Year</option>
+                  {modelYears.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -186,8 +226,10 @@ const AddCarModal = () => {
                 className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
               >
                 <option value="">Select Category</option>
-                {carCategories.map(category => (
-                  <option key={category} value={category}>{category}</option>
+                {carCategories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
                 ))}
               </select>
             </div>
@@ -205,6 +247,25 @@ const AddCarModal = () => {
                 className="input input-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
                 placeholder="https://example.com/car-image.jpg"
               />
+            </div>
+
+            {/* Rating Field - NEW */}
+            <div>
+              <label className="label font-semibold text-lg flex items-center gap-2">
+                <FaStar className="text-yellow-500" />
+                Car Rating
+              </label>
+              <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
+                <div className="flex flex-col gap-3">
+                  <StarRating rating={rating} setRating={setRating} />
+                  <div className="text-sm text-gray-500 flex items-center gap-2">
+                    <span className="flex items-center gap-1">
+                      <FaStar className="text-yellow-400" />
+                      Select a rating from 1 to 5 stars
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Description */}
@@ -248,8 +309,10 @@ const AddCarModal = () => {
                   className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
                 >
                   <option value="">Select Seats</option>
-                  {seatOptions.map(seats => (
-                    <option key={seats} value={seats}>{seats} Seats</option>
+                  {seatOptions.map((seats) => (
+                    <option key={seats} value={seats}>
+                      {seats} Seats
+                    </option>
                   ))}
                 </select>
               </div>
@@ -266,8 +329,10 @@ const AddCarModal = () => {
                   className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
                 >
                   <option value="">Select Transmission</option>
-                  {transmissionOptions.map(transmission => (
-                    <option key={transmission} value={transmission}>{transmission}</option>
+                  {transmissionOptions.map((transmission) => (
+                    <option key={transmission} value={transmission}>
+                      {transmission}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -284,8 +349,10 @@ const AddCarModal = () => {
                   className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none py-4"
                 >
                   <option value="">Select Climate</option>
-                  {climateOptions.map(climate => (
-                    <option key={climate} value={climate}>{climate}</option>
+                  {climateOptions.map((climate) => (
+                    <option key={climate} value={climate}>
+                      {climate}
+                    </option>
                   ))}
                 </select>
               </div>

@@ -9,15 +9,15 @@ import { AuthContext } from "../Context/AuthContext";
 
 const CarDetails = () => {
   const [car, setCar] = useState(null);
- 
+
   const [loading, setLoading] = useState(true);
   const [isBooking, setIsBooking] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [updateData, setUpdateData] = useState(false);
-  
+
   const { id } = useParams();
-  
+
   console.log(id);
 
   const naviagte = useNavigate();
@@ -38,7 +38,6 @@ const CarDetails = () => {
         setLoading(false);
       });
   }, []);
-
 
   console.log(car);
 
@@ -62,8 +61,7 @@ const CarDetails = () => {
       status: "confirmed",
     };
 
-console.log('car data',bookingData);
-
+    console.log("car data", bookingData);
 
     fetch(`http://localhost:3000/my-bookings/${id}`, {
       method: "POST",
@@ -146,7 +144,7 @@ console.log('car data',bookingData);
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/my-bookings/${id}`, {
+        fetch(`http://localhost:3000/cars/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
