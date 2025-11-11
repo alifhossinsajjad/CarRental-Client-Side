@@ -54,7 +54,7 @@ const AddCarModal = () => {
       created_by: user.email || "user",
     };
 
-    console.log("Submitting car data:", formData);
+    // console.log("Submitting car data:", formData);
 
     const response = await fetch("http://localhost:3000/cars", {
       method: "POST",
@@ -65,7 +65,7 @@ const AddCarModal = () => {
     });
 
     const data = await response.json();
-    console.log("car data", data);
+    // console.log("car data", data);
 
     if (data.success) {
       toast.success("Car added successfully!");

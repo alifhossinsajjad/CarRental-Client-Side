@@ -1,11 +1,17 @@
 import React, { use, useState } from "react";
 
 import toast, { Toaster } from "react-hot-toast";
-import { FaEyeSlash, FaRegEye, FaCar, FaArrowRight, FaUser, FaImage } from "react-icons/fa";
+import {
+  FaEyeSlash,
+  FaRegEye,
+  FaCar,
+  FaArrowRight,
+  FaUser,
+  FaImage,
+} from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../Context/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router";
-
 
 const Registration = () => {
   const { createUser, updateUserProfile, googleSignIn } = use(AuthContext);
@@ -19,13 +25,14 @@ const Registration = () => {
     setIsLoading(true);
 
     const formData = new FormData(event.target);
-    const name = formData.get('name');
-    const photo = formData.get('photo');
-    const email = formData.get('email');
-    const password = formData.get('password');
+    const name = formData.get("name");
+    const photo = formData.get("photo");
+    const email = formData.get("email");
+    const password = formData.get("password");
 
     // Enhanced password validation
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if (!passwordPattern.test(password)) {
       toast.error(
@@ -40,25 +47,28 @@ const Registration = () => {
       // Create user account
       const result = await createUser(email, password);
       console.log("User created:", result.user);
-      
-      toast.success('Account created successfully! 🎉', {
+      toast.success("Account created successfully!", {
         duration: 4000,
-        position: 'top-center',
+        position: "top-center",
       });
 
       // Update user profile
-      await updateUserProfile({ 
-        displayName: name, 
-        photoURL: photo || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
+      await updateUserProfile({
+        displayName: name,
+        photoURL:
+          photo ||
+          "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
       });
 
       // Save user to database
-      const newUser = { 
-        name, 
-        email, 
-        image: photo || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
+      const newUser = {
+        name,
+        email,
+        image:
+          photo ||
+          "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
         createdAt: new Date().toISOString(),
-        role: "user"
+        role: "user",
       };
 
       const dbResponse = await fetch("http://localhost:3000/users", {
@@ -70,20 +80,20 @@ const Registration = () => {
       const dbData = await dbResponse.json();
       console.log("User saved to DB:", dbData);
 
-      toast.success('Profile updated successfully! ✨', {
+      toast.success("Profile updated successfully! ✨", {
         duration: 3000,
-        position: 'top-center',
+        position: "top-center",
       });
 
       event.target.reset();
       navigate(location?.state?.from || "/");
-
     } catch (error) {
       console.error("Registration error:", error);
-      
+
       let errorMessage = "Registration failed. Please try again.";
       if (error.code === "auth/email-already-in-use") {
-        errorMessage = "This email is already registered. Please use a different email.";
+        errorMessage =
+          "This email is already registered. Please use a different email.";
       } else if (error.code === "auth/weak-password") {
         errorMessage = "Password is too weak. Please use a stronger password.";
       } else if (error.code === "auth/invalid-email") {
@@ -92,7 +102,7 @@ const Registration = () => {
 
       toast.error(errorMessage, {
         duration: 5000,
-        position: 'top-center',
+        position: "top-center",
       });
     } finally {
       setIsLoading(false);
@@ -104,14 +114,14 @@ const Registration = () => {
       await googleSignIn();
       toast.success("Google registration successful! 🎉", {
         duration: 4000,
-        position: 'top-center',
+        position: "top-center",
       });
       navigate(location?.state?.from || "/");
     } catch (error) {
       console.error("Google sign-in error:", error);
       toast.error("Google registration failed. Please try again.", {
         duration: 5000,
-        position: 'top-center',
+        position: "top-center",
       });
     }
   };
@@ -123,30 +133,30 @@ const Registration = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 flex items-center justify-center p-4">
       {/* Toaster Component */}
-      <Toaster 
+      <Toaster
         toastOptions={{
           duration: 4000,
-          position: 'top-center',
+          position: "top-center",
           style: {
-            fontSize: '16px',
-            padding: '16px',
-            borderRadius: '12px',
-            fontWeight: '500',
+            fontSize: "16px",
+            padding: "16px",
+            borderRadius: "12px",
+            fontWeight: "500",
           },
           success: {
             style: {
-              background: '#10B981',
-              color: '#fff',
+              background: "#10B981",
+              color: "#fff",
             },
             iconTheme: {
-              primary: '#fff',
-              secondary: '#10B981',
+              primary: "#fff",
+              secondary: "#10B981",
             },
           },
           error: {
             style: {
-              background: '#EF4444',
-              color: '#fff',
+              background: "#EF4444",
+              color: "#fff",
             },
           },
         }}
@@ -170,7 +180,7 @@ const Registration = () => {
               <div className="absolute top-1/2 left-1/3 w-12 h-12 border-2 border-white rounded-full"></div>
               <div className="absolute bottom-10 left-20 w-24 h-24 border-2 border-white rounded-full"></div>
             </div>
-            
+
             <div className="relative z-10">
               <Link to="/" className="flex items-center gap-3 mb-8 group">
                 <div className="p-2 bg-white/20 rounded-xl group-hover:bg-white/30 transition-all duration-300">
@@ -184,7 +194,8 @@ const Registration = () => {
                   Join <span className="text-yellow-300">RentWheels</span> Today
                 </h1>
                 <p className="text-purple-100 text-lg leading-relaxed">
-                  Create your account and unlock access to premium car rentals, exclusive deals, and seamless booking experiences.
+                  Create your account and unlock access to premium car rentals,
+                  exclusive deals, and seamless booking experiences.
                 </p>
               </div>
 
@@ -194,7 +205,9 @@ const Registration = () => {
                   <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
                     <div className="w-2 h-2 bg-white rounded-full"></div>
                   </div>
-                  <span className="text-purple-100">Premium car collection</span>
+                  <span className="text-purple-100">
+                    Premium car collection
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
@@ -261,7 +274,8 @@ const Registration = () => {
                     className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 placeholder-gray-400"
                   />
                   <p className="text-xs text-gray-500">
-                    Provide a URL for your profile picture. We'll use a default avatar if left empty.
+                    Provide a URL for your profile picture. We'll use a default
+                    avatar if left empty.
                   </p>
                 </div>
 
@@ -302,7 +316,11 @@ const Registration = () => {
                       onClick={handleShowPassword}
                       className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
                     >
-                      {showPassword ? <FaEyeSlash size={18} /> : <FaRegEye size={18} />}
+                      {showPassword ? (
+                        <FaEyeSlash size={18} />
+                      ) : (
+                        <FaRegEye size={18} />
+                      )}
                     </button>
                   </div>
                   <div className="text-xs text-gray-500 space-y-1">
@@ -339,7 +357,9 @@ const Registration = () => {
               {/* Divider */}
               <div className="flex items-center my-8">
                 <div className="flex-1 h-px bg-gray-200"></div>
-                <span className="px-4 text-gray-500 text-sm font-medium">Or sign up with</span>
+                <span className="px-4 text-gray-500 text-sm font-medium">
+                  Or sign up with
+                </span>
                 <div className="flex-1 h-px bg-gray-200"></div>
               </div>
 
@@ -361,7 +381,10 @@ const Registration = () => {
                     className="text-purple-600 font-semibold hover:text-purple-700 transition-colors duration-200 inline-flex items-center gap-1 group"
                   >
                     Sign in
-                    <FaArrowRight className="group-hover:translate-x-1 transition-transform duration-200" size={12} />
+                    <FaArrowRight
+                      className="group-hover:translate-x-1 transition-transform duration-200"
+                      size={12}
+                    />
                   </Link>
                 </p>
               </div>

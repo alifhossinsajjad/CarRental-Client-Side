@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
+import { FaCar } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { user, logOutUser } = useContext(AuthContext);
@@ -10,7 +12,7 @@ const Navbar = () => {
   const handleLogout = () => {
     logOutUser()
       .then(() => {
-        console.log("Logged out successfully");
+        toast.success("Logged out successfully");
         setIsDropdownOpen(false);
       })
       .catch((error) => {
@@ -36,13 +38,7 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center space-x-3 group">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 border border-blue-500/20">
-                <svg
-                  className="w-6 h-6 text-white"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M18.92 2.01C18.72 1.42 18.16 1 17.5 1h-11c-.66 0-1.21.42-1.42 1.01L3 8v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1V8l-2.08-5.99zM6.5 12c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9s1.5.67 1.5 1.5S7.33 12 6.5 12zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 7l1.5-4.5h11L19 7H5z" />
-                </svg>
+                <FaCar size={28} color="white"/>
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-bold bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text text-transparent tracking-tight">
@@ -55,7 +51,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+       
           <div className="hidden lg:flex items-center space-x-8">
             {filteredNavLinks.map((link) => (
               <NavLink
@@ -121,7 +117,7 @@ const Navbar = () => {
                   </svg>
                 </button>
 
-                {/* Dropdown Menu */}
+           
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-xl border border-gray-200/80 py-3 z-50 backdrop-blur-sm">
                     <div className="px-5 py-3 border-b border-gray-100">
@@ -202,7 +198,7 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden bg-white/98 backdrop-blur-lg rounded-3xl shadow-2xl border border-gray-200/80 mt-3 py-6 absolute left-4 right-4 z-40">
-            {/* Navigation Links */}
+    
             <div className="space-y-3 px-6">
               {filteredNavLinks.map((link) => (
                 <NavLink
@@ -294,7 +290,7 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Overlay for mobile menu */}
+  
       {isMobileMenuOpen && (
         <div
           className="lg:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
@@ -302,7 +298,7 @@ const Navbar = () => {
         ></div>
       )}
 
-      {/* Overlay for dropdown */}
+  
       {isDropdownOpen && (
         <div
           className="fixed inset-0 z-40"

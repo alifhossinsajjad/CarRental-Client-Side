@@ -24,7 +24,7 @@ const MyListing = () => {
     fetch(`http://localhost:3000/my-listing?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setListCar(data);
         setLoading(false);
       })
@@ -51,7 +51,7 @@ const MyListing = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             if (data.deletedCount > 0) {
               setListCar(prev => prev.filter(car => car._id !== carId));
               Swal.fire({

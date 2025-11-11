@@ -26,7 +26,7 @@ const MyBookings = () => {
     fetch(`http://localhost:3000/my-bookings?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Bookings data:", data);
+        // console.log("Bookings data:", data);
         setBookings(data);
         setLoading(false);
       })
@@ -37,7 +37,7 @@ const MyBookings = () => {
   }, [user]);
 
   const handleCancelBooking = (bookingId, carId) => {
-    console.log("Cancelling booking:", bookingId, "for car:", carId);
+    // console.log("Cancelling booking:", bookingId, "for car:", carId);
 
     Swal.fire({
       title: "Are you sure?",
@@ -58,7 +58,7 @@ const MyBookings = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log("Cancel booking response:", data);
+            // console.log("Cancel booking response:", data);
             if (data.deletedCount > 0 && data.carUpdated) {
               setBookings((prev) =>
                 prev.filter((booking) => booking._id !== bookingId)

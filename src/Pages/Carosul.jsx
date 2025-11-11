@@ -27,7 +27,7 @@ const Carousel = () => {
     fetch("http://localhost:3000/cars")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setCars(data);
         setLoading(false);
       })

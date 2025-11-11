@@ -21,7 +21,7 @@ const CarDetails = () => {
     fetch(`http://localhost:3000/cars/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setCar(data);
         setLoading(false);
       })
@@ -31,7 +31,7 @@ const CarDetails = () => {
       });
   }, []);
 
-  console.log(car);
+  // console.log(car);
 
   //car book
   const handleBookCar = () => {
@@ -53,7 +53,7 @@ const CarDetails = () => {
       status: "confirmed",
     };
 
-    console.log("car data", bookingData);
+    // console.log("car data", bookingData);
 
     fetch(`http://localhost:3000/my-bookings/${id}`, {
       method: "POST",
@@ -64,7 +64,7 @@ const CarDetails = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log("car booking done:", result);
+        // console.log("car booking done:", result);
 
         if (result) {
           setCar({
