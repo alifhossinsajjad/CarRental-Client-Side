@@ -78,7 +78,7 @@ const AddCarModal = () => {
   const StarRating = ({ rating, setRating }) => {
     return (
       <div className="flex items-center gap-2">
-        {[2, 3, 4.5, 4.7, 4.8, 5].map((star) => (
+        {[2, 3, 4,4.5,4.6,4.8, 5].map((star) => (
           <button
             key={star}
             type="button"
@@ -91,7 +91,7 @@ const AddCarModal = () => {
           </button>
         ))}
         <span className="ml-2 text-lg font-semibold text-gray-700">
-          {rating}.0
+          {rating}
         </span>
       </div>
     );
@@ -189,7 +189,7 @@ const AddCarModal = () => {
                   required
                   className="select select-bordered w-full rounded-2xl focus:border-blue-500 focus:outline-none border border-red-400"
                 >
-                  <option  value="">Select Year</option>
+                  <option value="">Select Year</option>
                   {modelYears.map((year) => (
                     <option key={year} value={year}>
                       {year}

@@ -9,19 +9,13 @@ import { AuthContext } from "../Context/AuthContext";
 
 const CarDetails = () => {
   const [car, setCar] = useState(null);
-
   const [loading, setLoading] = useState(true);
   const [isBooking, setIsBooking] = useState(false);
-  const [isUpdating, setIsUpdating] = useState(false);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [updateData, setUpdateData] = useState(false);
 
   const { id } = useParams();
-
-  console.log(id);
-
   const naviagte = useNavigate();
   const { user } = use(AuthContext);
+
   // Fetch car details
   useEffect(() => {
     setLoading(true);
@@ -30,7 +24,6 @@ const CarDetails = () => {
       .then((data) => {
         console.log(data);
         setCar(data);
-        setUpdateData(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -93,84 +86,7 @@ const CarDetails = () => {
       });
   };
 
-  //update handler
-
-  const handleUpdateCar = (e) => {
-    e.preventDefault();
-    setIsUpdating(true);
-
-    fetch(`http://localhost:3000/cars/${id}`, {
-      method: "PETCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updateData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.modifiedCount > 0) {
-          setCar(updateData);
-          setShowUpdateForm(false);
-
-          Swal.fire({
-            title: "Success!",
-            text: "Car details updated successfully!",
-            icon: "success",
-            confirmButtonColor: "#2563eb",
-            confirmButtonText: "Great!",
-            timer: 3000,
-            timerProgressBar: true,
-          });
-        }
-        setIsUpdating(false);
-      })
-      .catch((error) => {
-        console.log("Error updating car:", error);
-        toast.error("Failed to update car");
-        setIsUpdating(false);
-      });
-  };
-
-  //detele handler
-
-  const handleDeleteCar = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`http://localhost:3000/cars/${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            naviagte("/browse-cars");
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    });
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUpdateData({
-      ...updateData,
-      [name]: value,
-    });
-  };
+ 
 
   if (loading) {
     return <Loding />;
@@ -213,11 +129,16 @@ const CarDetails = () => {
                   alt={car.carName}
                   className="w-full h-80 object-cover"
                 />
-                {car.status === "booked" && (
-                  <div className="absolute top-4 right-4 bg-red-100 border border-red-200 text-red-700 px-4 py-2 rounded-lg font-medium text-sm">
-                    Booked
-                  </div>
-                )}
+                {/* Fixed Status Badge - Now shows both available and booked with proper colors */}
+                <div
+                  className={`absolute top-4 right-4 px-4 py-2 rounded-lg font-medium text-sm border ${
+                    car.status === "available"
+                      ? "bg-green-100 border-green-200 text-green-700"
+                      : "bg-red-100 border-red-200 text-red-700"
+                  }`}
+                >
+                  {car.status === "available" ? "Available" : "Booked"}
+                </div>
               </div>
 
               {/* Quick Stats */}
@@ -290,21 +211,7 @@ const CarDetails = () => {
                     : "Book This Car"}
                 </button>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <button
-                    onClick={() => setShowUpdateForm(true)}
-                    className="py-3 px-6 bg-white border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 active:bg-gray-100 transition-all duration-200"
-                  >
-                    Update Details
-                  </button>
-
-                  <button
-                    onClick={handleDeleteCar}
-                    className="py-3 px-6 bg-white border border-red-300 text-red-700 rounded-xl font-semibold hover:bg-red-50 active:bg-red-100 transition-all duration-200"
-                  >
-                    Delete Car
-                  </button>
-                </div>
+                
               </div>
 
               <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
@@ -317,11 +224,12 @@ const CarDetails = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Status:</span>
+                    {/* Fixed Status Display - Now with background colors */}
                     <span
-                      className={`font-medium ${
+                      className={`font-medium px-2 py-1 rounded ${
                         car.status === "available"
-                          ? "text-green-600"
-                          : "text-red-600"
+                          ? "text-green-700 bg-green-100"
+                          : "text-red-700 bg-red-100"
                       }`}
                     >
                       {car.status}
@@ -446,125 +354,7 @@ const CarDetails = () => {
         </div>
       </div>
 
-      {showUpdateForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200">
-              <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-semibold text-gray-900">
-                  Update Car Details
-                </h2>
-                <button
-                  onClick={() => setShowUpdateForm(false)}
-                  className="text-gray-400 hover:text-gray-600 text-2xl font-bold transition duration-200"
-                >
-                  ×
-                </button>
-              </div>
-            </div>
-
-            <form onSubmit={handleUpdateCar} className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[
-                  { label: "Car Name", name: "carName", type: "text" },
-                  { label: "Car Model", name: "carModel", type: "text" },
-                  {
-                    label: "Price Per Day ($)",
-                    name: "rentPricePerDay",
-                    type: "number",
-                  },
-                  { label: "Category", name: "carCategory", type: "text" },
-                  {
-                    label: "Image URL",
-                    name: "image",
-                    type: "url",
-                    colSpan: "md:col-span-2",
-                  },
-                ].map((field, index) => (
-                  <div key={index} className={field.colSpan || ""}>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {field.label}
-                    </label>
-                    <input
-                      type={field.type}
-                      name={field.name}
-                      value={updateData[field.name] || ""}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                      required
-                    />
-                  </div>
-                ))}
-
-                {/* Description Field */}
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Description
-                  </label>
-                  <textarea
-                    name="description"
-                    value={updateData.description || ""}
-                    onChange={handleInputChange}
-                    rows="4"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                    placeholder="Enter detailed car description..."
-                  />
-                </div>
-
-                {/* Features Field */}
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Features (comma separated)
-                  </label>
-                  <textarea
-                    name="features"
-                    value={
-                      updateData.features ? updateData.features.join(", ") : ""
-                    }
-                    onChange={(e) => {
-                      const featuresArray = e.target.value
-                        .split(",")
-                        .map((feature) => feature.trim())
-                        .filter((feature) => feature);
-                      setUpdateData({
-                        ...updateData,
-                        features: featuresArray,
-                      });
-                    }}
-                    rows="3"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                    placeholder="Circular Display, Driving Modes, Customizable Ambient Lighting, ..."
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-4 mt-8">
-                <button
-                  type="button"
-                  onClick={() => setShowUpdateForm(false)}
-                  className="flex-1 py-3 px-6 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition duration-200"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={isUpdating}
-                  className="flex-1 py-3 px-6 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition duration-200"
-                >
-                  {isUpdating ? (
-                    <div className="flex items-center justify-center">
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                      Updating...
-                    </div>
-                  ) : (
-                    "Save Changes"
-                  )}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      
     </div>
   );
 };
