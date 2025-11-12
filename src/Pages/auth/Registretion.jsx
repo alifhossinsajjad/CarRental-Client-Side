@@ -132,7 +132,7 @@ const Registration = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 flex items-center justify-center p-4">
-      {/* Toaster Component */}
+
       <Toaster
         toastOptions={{
           duration: 4000,
@@ -162,7 +162,6 @@ const Registration = () => {
         }}
       />
 
-      {/* Background Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full blur-3xl opacity-30"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-blue-200 to-purple-200 rounded-full blur-3xl opacity-30"></div>
@@ -171,9 +170,9 @@ const Registration = () => {
 
       <div className="relative w-full max-w-4xl bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-white/20">
         <div className="flex flex-col lg:flex-row min-h-[700px]">
-          {/* Left Side - Brand & Visual */}
+        
           <div className="lg:w-2/5 bg-gradient-to-br from-purple-600 to-pink-600 text-white p-8 lg:p-12 flex flex-col justify-between relative overflow-hidden">
-            {/* Background Pattern */}
+      
             <div className="absolute inset-0 opacity-10">
               <div className="absolute top-10 left-10 w-20 h-20 border-2 border-white rounded-full"></div>
               <div className="absolute bottom-20 right-10 w-16 h-16 border-2 border-white rounded-full"></div>
@@ -199,7 +198,7 @@ const Registration = () => {
                 </p>
               </div>
 
-              {/* Features List */}
+       
               <div className="mt-8 space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
@@ -233,7 +232,7 @@ const Registration = () => {
             </div>
           </div>
 
-          {/* Right Side - Registration Form */}
+          {/* Right Side */}
           <div className="lg:w-3/5 p-8 lg:p-12 flex flex-col justify-center">
             <div className="max-w-md mx-auto w-full">
               <div className="text-center mb-8">
@@ -246,7 +245,7 @@ const Registration = () => {
               </div>
 
               <form onSubmit={handleRegister} className="space-y-6">
-                {/* Name Field */}
+                {/* Name */}
                 <div className="space-y-2">
                   <label className="text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center gap-2">
                     <FaUser className="text-purple-500" />
@@ -261,7 +260,7 @@ const Registration = () => {
                   />
                 </div>
 
-                {/* Photo URL Field */}
+                {/* Photo  */}
                 <div className="space-y-2">
                   <label className="text-gray-700 font-semibold text-sm uppercase tracking-wide flex items-center gap-2">
                     <FaImage className="text-purple-500" />
@@ -279,7 +278,7 @@ const Registration = () => {
                   </p>
                 </div>
 
-                {/* Email Field */}
+                {/* Email  */}
                 <div className="space-y-2">
                   <label className="text-gray-700 font-semibold text-sm uppercase tracking-wide">
                     Email Address
@@ -298,7 +297,7 @@ const Registration = () => {
                   </div>
                 </div>
 
-                {/* Password Field */}
+                {/* Password  */}
                 <div className="space-y-2">
                   <label className="text-gray-700 font-semibold text-sm uppercase tracking-wide">
                     Password
@@ -354,7 +353,7 @@ const Registration = () => {
                 </button>
               </form>
 
-              {/* Divider */}
+           
               <div className="flex items-center my-8">
                 <div className="flex-1 h-px bg-gray-200"></div>
                 <span className="px-4 text-gray-500 text-sm font-medium">
@@ -372,7 +371,6 @@ const Registration = () => {
                 <span className="font-semibold">Sign up with Google</span>
               </button>
 
-              {/* Login Link */}
               <div className="text-center mt-8 pt-6 border-t border-gray-200">
                 <p className="text-gray-600">
                   Already have an account?{" "}
@@ -393,7 +391,6 @@ const Registration = () => {
         </div>
       </div>
 
-      {/* Floating Elements */}
       <div className="fixed bottom-8 right-8 flex items-center gap-2 text-sm text-gray-500">
         <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
         Secure Registration

@@ -132,10 +132,10 @@ const BrowseCars = () => {
           </div>
         </div>
 
-        {/* Cars Grid */}
+
         {filteredCars.length === 0 ? (
           <div className="text-center py-16">
-            <div className="text-6xl mb-4">🚗</div>
+            <div className="text-6xl mb-4"><Facar size={30}/></div>
             <h3 className="text-2xl font-bold text-gray-800 mb-2">
               No Cars Found
             </h3>

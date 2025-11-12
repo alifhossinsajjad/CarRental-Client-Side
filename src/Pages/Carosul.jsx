@@ -53,7 +53,7 @@ const Carousel = () => {
   const featuredCars = cars.slice(0, 6);
 
   return (
-    <div className="relative w-full overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 min-h-[600px]">
+    <div className="relative w-full overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 min-h-[600px] rounded-xl">
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-10 w-64 h-64 border-2 border-white rounded-full animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-48 h-48 border-2 border-white rounded-full animate-pulse delay-1000"></div>
@@ -177,14 +177,14 @@ const Carousel = () => {
                       </div>
 
                       <div className="flex items-center gap-4">
-                        <Link
+                        {/* <Link
                           to={"/browse-cars"}
                           className="group relative bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center gap-3 shadow-2xl hover:shadow-3xl text-lg overflow-hidden"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                           <span>Browse the car</span>
                           <FaArrowRight className="group-hover:translate-x-2 transition-transform duration-200" />
-                        </Link>
+                        </Link> */}
 
                         <button className="bg-white/10 backdrop-blur-sm text-white px-6 py-4 rounded-2xl font-bold hover:bg-white/20 transition-all duration-300 border border-white/20 flex items-center gap-3 hover:shadow-2xl">
                           <FaHeart />

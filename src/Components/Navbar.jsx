@@ -38,7 +38,7 @@ const Navbar = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center space-x-3 group">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 border border-blue-500/20">
-                <FaCar size={28} color="white"/>
+                <FaCar size={28} color="white" />
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-bold bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text text-transparent tracking-tight">
@@ -51,7 +51,6 @@ const Navbar = () => {
             </Link>
           </div>
 
-       
           <div className="hidden lg:flex items-center space-x-8">
             {filteredNavLinks.map((link) => (
               <NavLink
@@ -71,9 +70,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* User Section */}
           <div className="flex items-center space-x-6">
-            {/* Desktop User Menu */}
             {user ? (
               <div className="hidden lg:block relative">
                 <button
@@ -117,7 +114,6 @@ const Navbar = () => {
                   </svg>
                 </button>
 
-           
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-xl border border-gray-200/80 py-3 z-50 backdrop-blur-sm">
                     <div className="px-5 py-3 border-b border-gray-100">
@@ -169,7 +165,7 @@ const Navbar = () => {
               </div>
             )}
 
-            {/* Mobile Menu Button */}
+            {/* mobaile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-3 rounded-xl hover:bg-blue-50 transition-all duration-200 group"
@@ -195,10 +191,9 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* mobaile menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden bg-white/98 backdrop-blur-lg rounded-3xl shadow-2xl border border-gray-200/80 mt-3 py-6 absolute left-4 right-4 z-40">
-    
             <div className="space-y-3 px-6">
               {filteredNavLinks.map((link) => (
                 <NavLink
@@ -218,7 +213,7 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* User Section - Mobile */}
+           
             {user ? (
               <div className="border-t border-gray-100 mt-6 pt-6 px-6">
                 <div className="flex items-center space-x-4 px-4 py-4 bg-blue-50 rounded-2xl border border-blue-100">
@@ -290,7 +285,6 @@ const Navbar = () => {
         )}
       </div>
 
-  
       {isMobileMenuOpen && (
         <div
           className="lg:hidden fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
@@ -298,7 +292,6 @@ const Navbar = () => {
         ></div>
       )}
 
-  
       {isDropdownOpen && (
         <div
           className="fixed inset-0 z-40"
