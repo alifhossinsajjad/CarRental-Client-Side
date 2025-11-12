@@ -9,7 +9,7 @@ const LatestCars = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:3000/latest-cars")
+    fetch("https://car-re-ntal-server-side.vercel.app/latest-cars")
       .then((res) => res.json())
       .then((data) => {
         setCars(data);
@@ -28,7 +28,7 @@ const LatestCars = () => {
 
     if (!search.trim()) {
       setLoading(true);
-      fetch("http://localhost:3000/latest-cars")
+      fetch("https://car-re-ntal-server-side.vercel.app/latest-cars")
         .then((res) => res.json())
         .then((data) => {
           setCars(data);
@@ -42,7 +42,7 @@ const LatestCars = () => {
     }
 
     setLoading(true);
-    fetch(`http://localhost:3000/search?search=${search}`)
+    fetch(`https://car-re-ntal-server-side.vercel.app/search?search=${search}`)
       .then((res) => res.json())
       .then((data) => {
         setCars(data);
@@ -57,7 +57,7 @@ const LatestCars = () => {
   const clearSearch = () => {
     setSearchTerm("");
     setLoading(true);
-    fetch("http://localhost:3000/latest-cars")
+    fetch("https://car-re-ntal-server-side.vercel.app/latest-cars")
       .then((res) => res.json())
       .then((data) => {
         setCars(data);
@@ -148,7 +148,6 @@ const LatestCars = () => {
             </form>
           </div>
         </div>
-
       </div>
 
       {/* Content Section */}

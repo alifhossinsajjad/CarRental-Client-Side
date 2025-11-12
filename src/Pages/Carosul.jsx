@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  FaArrowRight,
   FaCar,
   FaCrown,
   FaHandSparkles,
@@ -13,7 +12,6 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import { Link } from "react-router";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -24,7 +22,7 @@ const Carousel = () => {
   const [autoplayPlaying, setAutoplayPlaying] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/cars")
+    fetch("https://car-re-ntal-server-side.vercel.app/cars")
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);

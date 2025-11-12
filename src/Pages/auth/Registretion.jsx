@@ -71,11 +71,14 @@ const Registration = () => {
         role: "user",
       };
 
-      const dbResponse = await fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(newUser),
-      });
+      const dbResponse = await fetch(
+        "https://car-re-ntal-server-side.vercel.app/users",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(newUser),
+        }
+      );
 
       const dbData = await dbResponse.json();
       console.log("User saved to DB:", dbData);
@@ -132,7 +135,6 @@ const Registration = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 flex items-center justify-center p-4">
-
       <Toaster
         toastOptions={{
           duration: 4000,
@@ -170,9 +172,7 @@ const Registration = () => {
 
       <div className="relative w-full max-w-4xl bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-white/20">
         <div className="flex flex-col lg:flex-row min-h-[700px]">
-        
           <div className="lg:w-2/5 bg-gradient-to-br from-purple-600 to-pink-600 text-white p-8 lg:p-12 flex flex-col justify-between relative overflow-hidden">
-      
             <div className="absolute inset-0 opacity-10">
               <div className="absolute top-10 left-10 w-20 h-20 border-2 border-white rounded-full"></div>
               <div className="absolute bottom-20 right-10 w-16 h-16 border-2 border-white rounded-full"></div>
@@ -198,7 +198,6 @@ const Registration = () => {
                 </p>
               </div>
 
-       
               <div className="mt-8 space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
@@ -353,7 +352,6 @@ const Registration = () => {
                 </button>
               </form>
 
-           
               <div className="flex items-center my-8">
                 <div className="flex-1 h-px bg-gray-200"></div>
                 <span className="px-4 text-gray-500 text-sm font-medium">
