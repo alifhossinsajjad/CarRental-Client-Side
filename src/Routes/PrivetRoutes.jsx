@@ -5,14 +5,14 @@ import Loding from "../Pages/Loding";
 
 const PrivetRoutes = ({ children }) => {
   const { user, loading } = use(AuthContext);
-  // console.log(user, loading);
+  console.log(user, loading)
   const location = useLocation();
 
   if (loading) {
     return <div><Loding/></div>
   }
 
-  if (user && user?.email) {
+  if (user) {
     return children;
   }
   return <Navigate state={location.pathname} to={"/auth/login"} replace />;

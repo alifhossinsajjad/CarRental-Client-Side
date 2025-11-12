@@ -29,9 +29,7 @@ const MyListing = () => {
 
   const fetchMyListings = () => {
     setLoading(true);
-    fetch(
-      `https://car-re-ntal-server-side.vercel.app/my-listing?email=${user.email}`
-    )
+    fetch(`http://localhost:3000/my-listing?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -56,7 +54,7 @@ const MyListing = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://car-re-ntal-server-side.vercel.app/cars/${carId}`, {
+        fetch(`http://localhost:3000/cars/${carId}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -87,7 +85,7 @@ const MyListing = () => {
     e.preventDefault();
     setIsUpdating(true);
 
-    fetch(`https://car-re-ntal-server-side.vercel.app/cars/${updateData._id}`, {
+    fetch(`http://localhost:3000/cars/${updateData._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

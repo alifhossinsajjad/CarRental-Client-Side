@@ -280,8 +280,7 @@ MD ALIF MIA
 
 💡 Design Inspired by Modern UI Systems
 
-<div align="center">
+
 
 ⭐ If you like this project, please star the repo! ⭐
 
-</div> ```
