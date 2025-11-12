@@ -54,7 +54,7 @@ const AddCarModal = () => {
       created_by: user.email || "user",
     };
 
-    fetch("http://localhost:3000/cars", {
+    fetch("https://car-re-ntal-server-side.vercel.app/cars", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
