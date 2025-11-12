@@ -20,13 +20,13 @@ const AddCarModal = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [rating, setRating] = useState(4.5); // Default rating
+  const [rating, setRating] = useState(4.5);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!user) {
-      alert("Please login to add a car");
+      toast.error("Please login to add a car");
       navigate("/login");
       return;
     }
@@ -54,34 +54,32 @@ const AddCarModal = () => {
       created_by: user.email || "user",
     };
 
-    // console.log("Submitting car data:", formData);
-
-    const response = await fetch(
-      "https://car-re-ntal-server-side.vercel.app/cars",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
-
-    const data = await response.json();
-    // console.log("car data", data);
-
-    if (data.success) {
-      toast.success("Car added successfully!");
-      navigate("/browse-cars");
-    } else {
-      toast.error(data.message || "Failed to add car");
-    }
+    fetch("http://localhost:3000/cars", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "Car added successfully!") {
+          toast.success("Car added successfully!");
+          navigate("/browse-cars");
+        } else {
+          toast.error("Failed to add car");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Network error: Failed to add car");
+      });
   };
 
   const StarRating = ({ rating, setRating }) => {
     return (
       <div className="flex items-center gap-2">
-        {[2, 3, 4, 4.5, 4.6, 4.8, 5].map((star) => (
+        {[2, 3, 4, 4.5, 4.6, 4.8, 4.9, 5].map((star) => (
           <button
             key={star}
             type="button"
@@ -374,7 +372,7 @@ const AddCarModal = () => {
               ) : (
                 <>
                   <FaPlus className="mr-2" />
-                  Add Car to RentWheels
+                  Add Car to AutoElite
                 </>
               )}
             </button>

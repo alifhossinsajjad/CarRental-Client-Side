@@ -24,7 +24,7 @@ const Carousel = () => {
   const [autoplayPlaying, setAutoplayPlaying] = useState(true);
 
   useEffect(() => {
-    fetch("https://car-re-ntal-server-side.vercel.app/cars")
+    fetch("http://localhost:3000/cars")
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
