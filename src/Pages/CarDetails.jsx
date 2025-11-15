@@ -18,7 +18,7 @@ const CarDetails = () => {
   // Fetch car details
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3000/cars/${id}`)
+    fetch(`https://car-re-ntal-server-side.vercel.app/cars/${id}`)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -55,7 +55,7 @@ const CarDetails = () => {
 
     // console.log("car data", bookingData);
 
-    fetch(`http://localhost:3000/my-bookings/${id}`, {
+    fetch(`https://car-re-ntal-server-side.vercel.app/my-bookings/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

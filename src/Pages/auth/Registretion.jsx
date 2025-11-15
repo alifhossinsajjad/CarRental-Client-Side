@@ -71,11 +71,14 @@ const Registration = () => {
         role: "user",
       };
 
-      const dbResponse = await fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(newUser),
-      });
+      const dbResponse = await fetch(
+        "https://car-re-ntal-server-side.vercel.app/users",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(newUser),
+        }
+      );
 
       const dbData = await dbResponse.json();
       console.log("User saved to DB:", dbData);
