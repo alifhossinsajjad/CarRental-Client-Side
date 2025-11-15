@@ -5,15 +5,48 @@
   themes: light --default, dark --prefersdark;
 }
 
+:root {
+  --gradient-from: #632EE3;
+  --gradient-to: #9F62F2;
+}
+
+[data-theme="dark"] {
+  --gradient-from: #7C3AED;
+  --gradient-to: #A78BFA;
+}
+
 body {
   font-family: "Poppins", sans-serif;
 }
 
 /* Custom gradient button */
 .btn-primary {
-  @apply bg-gradient-to-r from-[#632EE3] to-[#9F62F2] text-white border-none;
+  background: linear-gradient(to right, var(--gradient-from), var(--gradient-to));
+  @apply text-white border-none;
 }
 
 .btn-primary:hover {
   @apply opacity-90;
+}
+
+/* Smooth theme transition */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom scrollbar for better dark mode support */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-base-200;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-base-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-base-content/30;
 }
