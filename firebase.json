@@ -1,10 +1,17 @@
 {
+  "projects": {
+    "default": "simple-firebase-authenti-d2c26"
+  },
   "hosting": {
     "public": "dist",
-    "ignore": ["firebase.json", "/.*", "/node_modules/"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "rewrites": [
       {
-        "source": "",
+        "source": "**",
         "destination": "/index.html"
       }
     ]
