@@ -19,7 +19,7 @@
 ## 🌟 **Overview**
 **AutoElite (RentWheels)** offers a next-gen car rental experience with real-time booking management, secure authentication, and an elegant UI built for performance and usability.
 
-🌐 **Live Demo:** [Click to Open App](https://simple-firebase-authenti-d2c26.firebaseapp.com/)
+🌐 **Live Demo:** [Click to Open App](https://car-rental-8fde9.web.app/)
 
 ---
 
