@@ -1,13 +1,13 @@
-import React, { use, useRef, useState } from "react";
+import { use, useRef, useState } from "react";
 
-import { FaEyeSlash, FaRegEye, FaCar, FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaCar, FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../Firebase/Firebase.config";
-import { AuthContext } from "../../Context/AuthContext";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../Context/AuthContext";
+import { auth } from "../../Firebase/Firebase.config";
 
 const Login = () => {
   const { signInUser, googleSignIn } = use(AuthContext);

@@ -12,7 +12,7 @@ import {
   FaUser,
   FaUsers,
 } from "react-icons/fa";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../Context/AuthContext";
 

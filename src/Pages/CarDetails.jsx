@@ -1,7 +1,7 @@
 import { use, useEffect, useState } from "react";
 
 import { FaStar } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../Context/AuthContext";
 import Loding from "./Loding";
@@ -198,8 +198,8 @@ const CarDetails = () => {
                   {isBooking
                     ? "Booking..."
                     : car.status === "Booked"
-                    ? "Already Booked"
-                    : "Book This Car"}
+                      ? "Already Booked"
+                      : "Book This Car"}
                 </button>
               </div>
 

@@ -10,7 +10,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 
 const Registration = () => {
@@ -37,7 +37,7 @@ const Registration = () => {
     if (!passwordPattern.test(password)) {
       toast.error(
         "Password must contain:\n• 8+ characters\n• Uppercase letter\n• Lowercase letter\n• Number\n• Special character",
-        { duration: 6000 }
+        { duration: 6000 },
       );
       setIsLoading(false);
       return;
@@ -77,7 +77,7 @@ const Registration = () => {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(newUser),
-        }
+        },
       );
 
       const dbData = await dbResponse.json();

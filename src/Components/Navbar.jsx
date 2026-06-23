@@ -1,12 +1,12 @@
-import React, { useState, useEffect, use } from "react";
+import { use, useEffect, useState } from "react";
 
-import { AuthContext } from "../Context/AuthContext";
-import { FaCar, FaSun, FaMoon } from "react-icons/fa";
+import { FaCar, FaMoon, FaSun } from "react-icons/fa";
+import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Link, NavLink } from "react-router";
+import { AuthContext } from "../Context/AuthContext";
 
 const Navbar = () => {
-  const { user, logOutUser } = use(AuthContext)
+  const { user, logOutUser } = use(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState("light");
@@ -14,8 +14,10 @@ const Navbar = () => {
   // Initialize theme from localStorage or system preference
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+
     if (savedTheme) {
       setTheme(savedTheme);
       document.documentElement.setAttribute("data-theme", savedTheme);

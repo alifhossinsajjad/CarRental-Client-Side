@@ -8,7 +8,7 @@ import {
 import { LuBadgeCheck } from "react-icons/lu";
 import { MdAirlineSeatReclineNormal } from "react-icons/md";
 import { TbCalendarCancel } from "react-icons/tb";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const BrowseCarsCard = ({ car }) => {
   const {

@@ -8,7 +8,7 @@ import {
   FaTrash,
   FaUsers,
 } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import BrowseCarsCard from "../Components/BrowseCarsCard";
@@ -30,7 +30,7 @@ const MyListing = () => {
   const fetchMyListings = () => {
     setLoading(true);
     fetch(
-      `https://car-re-ntal-server-side.vercel.app/my-listing?email=${user.email}`
+      `https://car-re-ntal-server-side.vercel.app/my-listing?email=${user.email}`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -98,7 +98,7 @@ const MyListing = () => {
       .then((data) => {
         if (data.modifiedCount > 0) {
           setListCar((prev) =>
-            prev.map((car) => (car._id === updateData._id ? updateData : car))
+            prev.map((car) => (car._id === updateData._id ? updateData : car)),
           );
           setShowUpdateForm(false);
           setUpdateData(null);
@@ -151,7 +151,7 @@ const MyListing = () => {
 
   const totalEarnings = listCar.reduce(
     (sum, car) => sum + (car.rentPricePerDay || 0),
-    0
+    0,
   );
 
   return (

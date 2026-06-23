@@ -9,7 +9,7 @@ import {
   FaStar,
   FaTimes,
 } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Context/AuthContext";
@@ -24,7 +24,7 @@ const MyBookings = () => {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `https://car-re-ntal-server-side.vercel.app/my-bookings?email=${user.email}`
+      `https://car-re-ntal-server-side.vercel.app/my-bookings?email=${user.email}`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -59,18 +59,18 @@ const MyBookings = () => {
           `https://car-re-ntal-server-side.vercel.app/my-bookings/${carId}`,
           {
             method: "DELETE",
-          }
+          },
         )
           .then((res) => res.json())
           .then((data) => {
             // console.log("Cancel booking response:", data);
             if (data.deletedCount > 0 && data.carUpdated) {
               setBookings((prev) =>
-                prev.filter((booking) => booking._id !== bookingId)
+                prev.filter((booking) => booking._id !== bookingId),
               );
               setCancellingId(null);
               toast.success(
-                "Booking cancelled successfully! Car is now Available."
+                "Booking cancelled successfully! Car is now Available.",
               );
             } else {
               setCancellingId(null);
@@ -139,7 +139,7 @@ const MyBookings = () => {
                     {bookings.reduce(
                       (total, booking) =>
                         total + parseFloat(booking.rentPricePerDay),
-                      0
+                      0,
                     )}
                   </p>
                   <p className="text-gray-600">Total Value</p>
@@ -158,7 +158,7 @@ const MyBookings = () => {
                       ? (
                           bookings.reduce(
                             (sum, booking) => sum + parseFloat(booking.rating),
-                            0
+                            0,
                           ) / bookings.length
                         ).toFixed(1)
                       : "0.0"}
