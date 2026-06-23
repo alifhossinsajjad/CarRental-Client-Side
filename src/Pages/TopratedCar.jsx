@@ -303,7 +303,7 @@ const TopratedCar = () => {
                     className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
                     onClick={() =>
                       setActiveTestimonial(
-                        testimonials.findIndex((t) => t.id === testimonial.id)
+                        testimonials.findIndex((t) => t.id === testimonial.id),
                       )
                     }
                   >

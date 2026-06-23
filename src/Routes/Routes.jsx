@@ -1,25 +1,25 @@
 import { createBrowserRouter } from "react-router";
-import ErrorPage from "../Pages/ErrorPage";
-import Home from "../Pages/Home";
-import PrivetRoutes from "./PrivetRoutes";
-import AddCar from "../Pages/AddCar";
 import MainLayout from "../Layouts/MainLayout";
+import AddCar from "../Pages/AddCar";
 import Login from "../Pages/auth/Login";
 import Registretion from "../Pages/auth/Registretion";
-import MyListing from "../Pages/MyListing";
-import MyBookings from "../Pages/MyBookings";
 import BrowseCars from "../Pages/BrowseCars";
 import CarDetails from "../Pages/CarDetails";
+import ErrorPage from "../Pages/ErrorPage";
+import Home from "../Pages/Home";
+import MyBookings from "../Pages/MyBookings";
+import MyListing from "../Pages/MyListing";
+import PrivetRoutes from "./PrivetRoutes";
+
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: MainLayout,
+    element: <MainLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
         index: true,
-        path: "/",
-        Component: Home,
+        element: <Home />,
       },
       {
         path: "/add-car",
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         path: "/my-listings",
         element: (
           <PrivetRoutes>
-            <MyListing/>
+            <MyListing />
           </PrivetRoutes>
         ),
       },
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
         path: "/my-bookings",
         element: (
           <PrivetRoutes>
-            <MyBookings/>
+            <MyBookings />
           </PrivetRoutes>
         ),
       },
@@ -49,22 +49,21 @@ const router = createBrowserRouter([
         path: "/car-details/:id",
         element: (
           <PrivetRoutes>
-            <CarDetails/>
+            <CarDetails />
           </PrivetRoutes>
         ),
       },
       {
-        path:'/browse-cars',
-        Component: BrowseCars
+        path: "/browse-cars",
+        element: <BrowseCars />,
       },
-     
       {
         path: "/auth/login",
-        Component: Login,
+        element: <Login />,
       },
       {
-        path:'/auth/register',
-        Component: Registretion
+        path: "/auth/register",
+        element: <Registretion />,
       },
     ],
   },

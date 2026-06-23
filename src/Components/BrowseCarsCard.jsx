@@ -1,14 +1,14 @@
-import { Link } from "react-router";
 import {
-  FaStar,
-  FaUser,
+  FaArrowRight,
   FaHeart,
   FaShieldAlt,
-  FaArrowRight,
+  FaStar,
+  FaUser,
 } from "react-icons/fa";
 import { LuBadgeCheck } from "react-icons/lu";
 import { MdAirlineSeatReclineNormal } from "react-icons/md";
 import { TbCalendarCancel } from "react-icons/tb";
+import { Link } from "react-router";
 
 const BrowseCarsCard = ({ car }) => {
   const {
@@ -58,7 +58,7 @@ const BrowseCarsCard = ({ car }) => {
         <div className="absolute top-3 right-3 flex flex-col gap-2">
           <span
             className={`px-3 py-1.5 rounded-full text-xs font-semibold ${getStatusColor(
-              status
+              status,
             )}`}
           >
             {status}
@@ -67,7 +67,7 @@ const BrowseCarsCard = ({ car }) => {
         <div className="absolute top-3 left-3">
           <span
             className={`px-3 py-1.5 rounded-full text-xs font-semibold ${getCategoryColor(
-              carCategory
+              carCategory,
             )}`}
           >
             {carCategory}

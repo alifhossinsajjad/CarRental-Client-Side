@@ -1,15 +1,9 @@
-
-
 import Carosul from "./Carosul";
 import LatestCars from "./LatestCars";
 import RentCar from "./RentCar";
-
-
 import TopratedCar from "./TopratedCar";
 
 const Home = () => {
-  
-
   return (
     <div>
       {/* carosul section */}
@@ -21,13 +15,13 @@ const Home = () => {
 
       {/* latest car section */}
       <section className="my-20">
-        <LatestCars/>
+        <LatestCars />
       </section>
       {/* why rent with us */}
 
       <section>
         <div>
-        <RentCar/>
+          <RentCar />
         </div>
       </section>
 
